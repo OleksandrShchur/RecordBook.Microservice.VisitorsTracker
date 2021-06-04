@@ -8,7 +8,6 @@ namespace VisitorsTracker.Db.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(u => u.Birthday).HasField("date");
         }
     }
 }
