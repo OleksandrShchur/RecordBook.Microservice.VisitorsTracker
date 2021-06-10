@@ -1,4 +1,4 @@
-﻿namespace VisitorsTracker.Db.Enums
+﻿namespace VisitorsTracker.Shared.Enums
 {
     public enum Gender : byte
     {

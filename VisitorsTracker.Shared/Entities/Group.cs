@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace VisitorsTracker.Db.Entities
+namespace VisitorsTracker.Shared.Entities
 {
-    public class Group : BaseEntity 
+    public class Group : BaseEntity
     {
         public string Number { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using VisitorsTracker.Db.Enums;
+using VisitorsTracker.Shared.Enums;
 
-namespace VisitorsTracker.Db.Entities
+namespace VisitorsTracker.Shared.Entities
 {
     public class User : BaseEntity
     {

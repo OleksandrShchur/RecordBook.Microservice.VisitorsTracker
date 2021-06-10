@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisitorsTracker.Db.Entities
+namespace VisitorsTracker.Shared.Entities
 {
     public class UserRole
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using VisitorsTracker.Db.Entities;
+using VisitorsTracker.Shared.Entities;
 
 namespace VisitorsTracker.Db.EFCore
 {

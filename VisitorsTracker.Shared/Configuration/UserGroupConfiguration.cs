@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VisitorsTracker.Db.Entities;
+using VisitorsTracker.Shared.Entities;
 
-namespace VisitorsTracker.Db.Configurations
+namespace VisitorsTracker.Shared.Configuration
 {
     public class UserGroupConfiguration : IEntityTypeConfiguration<UserGroup>
     {

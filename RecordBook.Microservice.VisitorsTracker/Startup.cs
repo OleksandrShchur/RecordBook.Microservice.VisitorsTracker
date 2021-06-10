@@ -52,6 +52,7 @@ namespace RecordBook.Microservice.VisitorsTracker
                 app.UseHsts();
             }
 
+            // Automatically create table when app first run
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
