@@ -1,0 +1,22 @@
+<div class="container">
+    <h3>New user</h3>
+
+    <form [formGroup]="profileForm" (ngSubmit)="submitUser()" class="form-group">
+
+        <label for="email">Email: </label>
+        <input id="email" type="email" formControlName="email" class="form-control">
+        <br />
+        <label for="phone">Phone: </label>
+        <input id="phone" type="text" formControlName="phone" class="form-control">
+        <br />
+        <label for="birtday">Birthday: </label>
+        <input id="birthday" type="date" formControlName="birthday" class="form-control">
+        <br />
+        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">Add User</button>
+
+    </form>
+
+    <br />
+    <button class="button" (click)="getListOfUsers()" class="btn btn-outline-dark">Get Users</button>
+    <app-user-list [users]="userList" *ngIf="showListOfUsers"></app-user-list>
+</div>

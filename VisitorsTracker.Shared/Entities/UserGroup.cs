@@ -2,7 +2,7 @@
 
 namespace VisitorsTracker.Shared.Entities
 {
-    public class UserGroup
+    public class UserGroup : BaseEntity
     {
         public Guid UserId { get; set; }
 
