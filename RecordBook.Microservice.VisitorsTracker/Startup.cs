@@ -1,10 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using VisitorsTracker.Core.IServices;
+using VisitorsTracker.Core.Services;
+using VisitorsTracker.Db.EFCore;
+using VisitorsTracker.Web.Middlewares;
 
 namespace RecordBook.Microservice.VisitorsTracker
 {
@@ -20,12 +27,45 @@ namespace RecordBook.Microservice.VisitorsTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddControllers();
             // In production, the Angular files will be served from this directory
+
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            // Add DbContext to solution
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(connection);
+                options.EnableSensitiveDataLogging();
+            });
+
+            #region Configure our services...
+            services.AddScoped<IUserService, UserService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +82,14 @@ namespace RecordBook.Microservice.VisitorsTracker
                 app.UseHsts();
             }
 
+            // Automatically create table when app first run
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.Migrate();
+            }
+
+            app.UseCors("default");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -49,7 +97,14 @@ namespace RecordBook.Microservice.VisitorsTracker
                 app.UseSpaStaticFiles();
             }
 
+            app.UseCookiePolicy();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseSession();
+
+            app.UseMiddleware<TokenMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

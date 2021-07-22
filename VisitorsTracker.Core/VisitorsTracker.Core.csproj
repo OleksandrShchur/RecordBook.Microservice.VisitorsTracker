@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="5.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VisitorsTracker.Db\VisitorsTracker.Db.csproj" />
+    <ProjectReference Include="..\VisitorsTracker.Shared\VisitorsTracker.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
