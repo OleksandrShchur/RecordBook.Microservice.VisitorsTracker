@@ -30,5 +30,12 @@ namespace VisitorsTracker.Web.Controllers
         {
             return Ok(_userService.GetAllUsers());
         }
+
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Login(User user)
+        {
+            return Ok(_userService.Authenticate(user));
+        }
     }
 }

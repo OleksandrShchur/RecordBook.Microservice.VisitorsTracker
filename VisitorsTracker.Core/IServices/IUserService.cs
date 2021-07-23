@@ -14,5 +14,7 @@ namespace VisitorsTracker.Core.IServices
         User GetByEmail(string email);
 
         List<User> GetAllUsers();
+
+        User Authenticate(User user);
     }
 }
