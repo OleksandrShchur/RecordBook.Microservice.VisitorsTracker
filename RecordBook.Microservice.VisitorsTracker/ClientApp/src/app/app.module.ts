@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -14,6 +19,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,8 @@ import { AuthenticationComponent } from './components/authentication/authenticat
     UserListComponent,
     LoginComponent,
     LogoutComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    LeftSideBarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,7 +40,13 @@ import { AuthenticationComponent } from './components/authentication/authenticat
     RouterModule.forRoot([
       { path: '', component: AuthComponent, pathMatch: 'full' },
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BrowserModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
   ],
   providers: [BaseService, AuthService, HttpClient],
   bootstrap: [AppComponent]
