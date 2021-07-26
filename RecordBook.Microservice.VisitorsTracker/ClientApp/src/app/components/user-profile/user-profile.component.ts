@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, NgModule } from '@angular/core';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User } from 'src/app/models/user.model';
+import { Component } from '@angular/core';
+import { UserProfile } from 'src/app/models/user.profile.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,28 +9,10 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserProfileComponent {
   public showListOfUsers: Boolean = false;
-  profileForm = new FormGroup({
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    birthday: new FormControl(''),
-  });
 
-  userList: User | any;
+  userList: UserProfile | any;
 
   constructor(private http: HttpClient) { }
-
-  submitUser() {
-    let user = new User();
-    user = this.profileForm.value;
-    console.log(user);
-
-    this.http.post("https://localhost:44335/api/User/AddUser", user).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      error => console.log(error)
-    );
-  }
 
   getListOfUsers() {
     this.http.get("https://localhost:44335/api/User/GetUsers").subscribe(

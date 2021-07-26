@@ -11,15 +11,15 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
-import AuthService from './services/authService';
+import { AuthService } from './services/authService';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import BaseService from './services/baseService';
+import { BaseService } from './services/baseService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.c
     UserListComponent,
     LoginComponent,
     LogoutComponent,
-    AuthenticationComponent,
-    LeftSideBarComponent
+    LeftSideBarComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,9 +1,6 @@
-<div *ngIf="!done">
-    <form type="submit">
-        <button (click)="login()" class="btn btn-outline-success">Login</button>
-        <!-- <button (click)="registration()" class="btn btn-outline-warning">Registration</button> -->
-    </form>
-</div>
-<div class="container" *ngIf="done">
+<div class="container">
     <app-user-profile></app-user-profile>
+    
+    <br />
+    <app-login></app-login>
 </div>

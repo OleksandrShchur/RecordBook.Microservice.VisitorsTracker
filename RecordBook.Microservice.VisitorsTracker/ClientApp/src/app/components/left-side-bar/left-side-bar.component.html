@@ -13,8 +13,8 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-        <h4 class="name">John Smith</h4>
-        <p class="designation">Software Engineer</p>
+        <h4 class="name">Visitors Tracker</h4>
+        <p class="designation">Guest</p>
 
         <mat-divider></mat-divider>
 
@@ -22,10 +22,17 @@
             <mat-icon>home</mat-icon>
             <span>Home</span>
         </button>
+
+        <button mat-button class="menu-button">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </button>
+
         <button mat-button class="menu-button">
             <mat-icon>person</mat-icon>
             <span>Profile</span>
         </button>
+
         <button mat-button class="menu-button">
             <mat-icon>info</mat-icon>
             <span>About</span>
@@ -38,10 +45,14 @@
             <span>Help</span>
         </button>
 
+        <button mat-button class="menu-button">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
+
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="content mat-elevation-z8">
-            <app-auth></app-auth>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
