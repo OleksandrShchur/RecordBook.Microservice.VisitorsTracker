@@ -25,7 +25,7 @@ namespace VisitorsTracker.Core.Services
                 throw new Exception("User already exist in database");
             }
 
-            user.Password = PasswordHasher.GenerateHash(user.Password);
+            (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
 
             var result = await InsertAsync(user);
 
@@ -43,7 +43,9 @@ namespace VisitorsTracker.Core.Services
 
         public User Authenticate(User user)
         {
-            if(GetByEmail(user.Email).Password != PasswordHasher.GenerateHash(user.Password))
+            var userFromDb = GetByEmail(user.Email);
+
+            if(userFromDb.Password != PasswordHasher.HashPassword(user.Password, userFromDb.Salt))
             {
                 throw new Exception("Passwords does not match");
             }

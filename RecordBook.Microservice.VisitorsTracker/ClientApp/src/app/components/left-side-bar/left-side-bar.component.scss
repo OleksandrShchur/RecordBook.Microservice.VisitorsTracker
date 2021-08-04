@@ -30,6 +30,11 @@ mat-sidenav {
 
 mat-sidenav-container {
     height: calc(100vh - 65px);
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // z-index: 1;
 }
 
 .menu-button {

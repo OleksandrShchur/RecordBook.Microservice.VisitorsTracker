@@ -20,6 +20,11 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { UserService } from './services/userService';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,10 @@ import { RegistrationComponent } from './components/registration/registration.co
     LoginComponent,
     LogoutComponent,
     LeftSideBarComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    HomeComponent,
+    AboutUsComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,8 +55,9 @@ import { RegistrationComponent } from './components/registration/registration.co
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    AppRoutingModule
   ],
-  providers: [BaseService, AuthService, HttpClient],
+  providers: [BaseService, AuthService, UserService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
