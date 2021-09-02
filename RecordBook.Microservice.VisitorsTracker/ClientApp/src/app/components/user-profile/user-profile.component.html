@@ -1,6 +1,14 @@
-<div class="container">
-    <h3>User profile</h3>
-    <br />
-    <!-- <button class="button" (click)="getListOfUsers()" class="btn btn-outline-dark">Get Users</button>
-    <app-user-list [users]="userList" *ngIf="showListOfUsers"></app-user-list> -->
+<div class="main-content">
+    <mat-card>
+
+        <mat-card-title class='align-items-center'>User Profile</mat-card-title>
+
+        <mat-card-content>
+            <div class='d-flex flex-column justify-content-center align-items-center'>
+                <img mat-card-avatar [src]="getAvatar()" width="200" height="200" />
+            </div>
+            <h3>Email:</h3>
+            <span>{{getEmail}}</span>
+        </mat-card-content>
+    </mat-card>
 </div>

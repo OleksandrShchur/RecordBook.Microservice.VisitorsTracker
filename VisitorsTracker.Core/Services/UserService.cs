@@ -50,7 +50,7 @@ namespace VisitorsTracker.Core.Services
                 throw new Exception("Passwords does not match");
             }
 
-            return user;
+            return userFromDb;
         }
 
         private bool UserExistence(User user) => 

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { UserProfile } from 'src/app/models/user.profile.model';
-
+import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AppGlobalState } from 'src/app/app.global.state';
+ 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -9,10 +12,14 @@ import { UserProfile } from 'src/app/models/user.profile.model';
 })
 export class UserProfileComponent {
   public showListOfUsers: Boolean = false;
+  private _sanitizer;
 
   userList: UserProfile | any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private sanitizer: DomSanitizer) {
+      this._sanitizer = sanitizer;
+     }
 
   getListOfUsers() {
     this.http.get("https://localhost:44335/api/User/GetUsers").subscribe(
@@ -23,4 +30,10 @@ export class UserProfileComponent {
       error => console.log(error)
     );
   }
+
+  getAvatar() {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
+  }
+
+  getEmail = () => AppGlobalState.user.email;
 }

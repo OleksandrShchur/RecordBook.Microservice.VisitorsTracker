@@ -1,3 +1,5 @@
+import { UserLogin } from "./user.login.model";
+
 export class UserProfile {
     email: string | undefined;
     phone: string | undefined;

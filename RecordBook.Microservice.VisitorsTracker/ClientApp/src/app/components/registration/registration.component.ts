@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { UserProfile } from 'src/app/models/user.profile.model';
 import { UserService } from 'src/app/services/userService';
+import { AppGlobalState } from 'src/app/app.global.state';
 
 @Component({
   selector: 'app-registration',
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/userService';
 })
 export class RegistrationComponent{
   private _userService: UserService;
+  private _router: Router;
 
   profileForm = new FormGroup({
     email: new FormControl(''),
@@ -21,8 +23,9 @@ export class RegistrationComponent{
 
   public message: string = "";
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, router: Router) {
       this._userService = userService;
+      this._router = router;
     }
 
   submitUser() {
@@ -37,6 +40,9 @@ export class RegistrationComponent{
       (data: any) => {
         console.log(data);
         this.message = "User added";
+
+        this._router.navigate(['profile']);
+        AppGlobalState.user = data;
       },
       error => console.log(error)
     );
