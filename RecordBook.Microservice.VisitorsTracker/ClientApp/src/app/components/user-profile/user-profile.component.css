@@ -1,8 +1,19 @@
 mat-card{
-    width: fit-content;
+    width: 500px;
 }
 
 .mat-card-avatar {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
+}
+
+.profile-info {
+    border-style: outset;
+    border-radius: 10px 100px / 120px;
+    border-color: #92a8d1
+}
+
+.center {
+    text-align: center;
+    padding-left: 20px;
 }

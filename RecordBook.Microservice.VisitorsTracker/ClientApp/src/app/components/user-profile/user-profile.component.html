@@ -7,8 +7,36 @@
             <div class='d-flex flex-column justify-content-center align-items-center'>
                 <img mat-card-avatar [src]="getAvatar()" width="200" height="200" />
             </div>
-            <h3>Email:</h3>
-            <span>{{getEmail}}</span>
+            <br />
+            <br />
+
+            <div class='profile-info'>
+                <h3>Email:</h3>
+                <span class='center'>{{getEmail()}}</span>
+            </div>
+
+            <br />
+
+            <div class='profile-info'>
+                <h3>Phone:</h3>
+                <span class='center'>{{getPhone()}}</span>
+            </div>
+
+            <br />
+
+            <div class='profile-info'>
+                <h3>Birthday:</h3>
+                <span class='center'>{{getBirthday()}}</span>
+            </div>
+
+            <br />
+
+            <div class='profile-info'>
+                <h3>Roles:</h3>
+                <span class='center'>{{getRoles()}}</span>
+            </div>
+
+            <br />
         </mat-card-content>
     </mat-card>
 </div>

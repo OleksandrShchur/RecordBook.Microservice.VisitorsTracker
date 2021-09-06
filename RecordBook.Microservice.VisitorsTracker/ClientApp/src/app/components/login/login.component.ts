@@ -37,9 +37,8 @@ export class LoginComponent {
         console.log(data);
         this.message = "Login success";
         this._router.navigate(['profile']);
-
-        AppGlobalState.user = data;
-        console.log(AppGlobalState.user);
+        sessionStorage.setItem('userLoggedIn', data);
+        console.log(sessionStorage.getItem('userLoggedIn'));
       },
       error => console.log(error)
     );

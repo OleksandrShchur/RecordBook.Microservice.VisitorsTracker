@@ -13,6 +13,7 @@ import { AppGlobalState } from 'src/app/app.global.state';
 export class UserProfileComponent {
   public showListOfUsers: Boolean = false;
   private _sanitizer;
+  private userFromDb: any;
 
   userList: UserProfile | any;
 
@@ -20,6 +21,10 @@ export class UserProfileComponent {
     private sanitizer: DomSanitizer) {
       this._sanitizer = sanitizer;
      }
+
+  ngOnInit() {
+    this.userFromDb = sessionStorage.getItem('userLoggedIn');
+  }
 
   getListOfUsers() {
     this.http.get("https://localhost:44335/api/User/GetUsers").subscribe(
@@ -31,9 +36,15 @@ export class UserProfileComponent {
     );
   }
 
-  getAvatar() {
-    return this._sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
-  }
+  getAvatar = () => this._sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
 
-  getEmail = () => AppGlobalState.user.email;
+  getEmail = () => this.userFromDb.email;
+
+  getPhone = () => AppGlobalState.user.phone;
+
+  getBirthday = () => AppGlobalState.user.birthday;
+
+  getRoles = () => AppGlobalState.user.roles;
+
+  getGroups = () => AppGlobalState.user.groups;
 }

@@ -42,7 +42,7 @@ export class RegistrationComponent{
         this.message = "User added";
 
         this._router.navigate(['profile']);
-        AppGlobalState.user = data;
+        sessionStorage.setItem('userLoggedIn', data);
       },
       error => console.log(error)
     );
