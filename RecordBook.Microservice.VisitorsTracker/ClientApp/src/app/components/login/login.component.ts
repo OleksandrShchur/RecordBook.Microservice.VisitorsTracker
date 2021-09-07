@@ -37,7 +37,7 @@ export class LoginComponent {
         console.log(data);
         this.message = "Login success";
         this._router.navigate(['profile']);
-        sessionStorage.setItem('userLoggedIn', data);
+        sessionStorage.setItem('userLoggedIn', JSON.stringify(data));
         console.log(sessionStorage.getItem('userLoggedIn'));
       },
       error => console.log(error)

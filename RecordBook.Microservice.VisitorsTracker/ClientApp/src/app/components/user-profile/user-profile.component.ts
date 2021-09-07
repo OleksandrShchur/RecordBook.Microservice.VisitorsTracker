@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { UserProfile } from 'src/app/models/user.profile.model';
 import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AppGlobalState } from 'src/app/app.global.state';
  
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +22,7 @@ export class UserProfileComponent {
      }
 
   ngOnInit() {
-    this.userFromDb = sessionStorage.getItem('userLoggedIn');
+    this.userFromDb = JSON.parse(sessionStorage.getItem('userLoggedIn') || '{}');
   }
 
   getListOfUsers() {
@@ -40,11 +39,11 @@ export class UserProfileComponent {
 
   getEmail = () => this.userFromDb.email;
 
-  getPhone = () => AppGlobalState.user.phone;
+  getPhone = () => this.userFromDb.phone;
 
-  getBirthday = () => AppGlobalState.user.birthday;
+  getBirthday = () => new Date(this.userFromDb.birthday).toDateString();
 
-  getRoles = () => AppGlobalState.user.roles;
+  getRoles = () => this.userFromDb.roles;
 
-  getGroups = () => AppGlobalState.user.groups;
+  getGroups = () => this.userFromDb.groups;
 }
