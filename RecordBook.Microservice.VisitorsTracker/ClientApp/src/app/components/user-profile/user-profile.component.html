@@ -1,42 +1,51 @@
 <div class="main-content">
-    <mat-card>
 
-        <mat-card-title class='align-items-center'>User Profile</mat-card-title>
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Profile
+                </mat-panel-title>
+                <mat-panel-description>
+                    Visitors Tracker System
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-        <mat-card-content>
-            <div class='d-flex flex-column justify-content-center align-items-center'>
-                <img mat-card-avatar [src]="getAvatar()" width="200" height="200" />
-            </div>
-            <br />
-            <br />
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Email
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getEmail()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-            <div class='profile-info'>
-                <h3>Email:</h3>
-                <span class='center'>{{getEmail()}}</span>
-            </div>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Phone
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getPhone()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-            <br />
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Birthday
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getBirthday()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-            <div class='profile-info'>
-                <h3>Phone:</h3>
-                <span class='center'>{{getPhone()}}</span>
-            </div>
-
-            <br />
-
-            <div class='profile-info'>
-                <h3>Birthday:</h3>
-                <span class='center'>{{getBirthday()}}</span>
-            </div>
-
-            <br />
-
-            <div class='profile-info'>
-                <h3>Roles:</h3>
-                <span class='center'>{{getRoles()}}</span>
-            </div>
-
-            <br />
-        </mat-card-content>
-    </mat-card>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Roles
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getRoles()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
