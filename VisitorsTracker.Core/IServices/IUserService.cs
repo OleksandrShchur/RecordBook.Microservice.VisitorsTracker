@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VisitorsTracker.Shared.Entities;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Core.IServices
 {
@@ -15,6 +16,6 @@ namespace VisitorsTracker.Core.IServices
 
         List<User> GetAllUsers();
 
-        User Authenticate(User user);
+        User Authenticate(UserLoginViewModel user);
     }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { UserProfile } from 'src/app/models/user.profile.model';
 import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/userService';
  
 @Component({
   selector: 'app-user-profile',
@@ -11,18 +12,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UserProfileComponent {
   public showListOfUsers: Boolean = false;
-  private _sanitizer;
-  private userFromDb: any;
+  private userFromDb = new UserProfile;
 
   userList: UserProfile | any;
 
-  constructor(private http: HttpClient,
-    private sanitizer: DomSanitizer) {
-      this._sanitizer = sanitizer;
-     }
+  constructor(
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
+    private userService: UserService) { }
 
   ngOnInit() {
-    this.userFromDb = JSON.parse(sessionStorage.getItem('userLoggedIn') || '{}');
+    this.userFromDb = this.userService.getUser();
   }
 
   getListOfUsers() {
@@ -35,7 +35,7 @@ export class UserProfileComponent {
     );
   }
 
-  getAvatar = () => this._sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
+  getAvatar = () => this.sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
 
   getEmail = () => this.userFromDb.email;
 

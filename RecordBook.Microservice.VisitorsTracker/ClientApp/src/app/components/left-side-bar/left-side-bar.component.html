@@ -13,8 +13,10 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-        <h4 class="name">Visitors Tracker</h4>
-        <p class="designation">Guest</p>
+        <img [src]="getAvatar()" *ngIf="isAuthorized()" width="150" height="150" />
+        <h4 class="name" *ngIf="isAuthorized()">{{getNameOfUser()}}</h4>
+        <h4 class="name" *ngIf="!isAuthorized()">Visitors Tracker</h4>
+        <p class="designation" *ngIf="!isAuthorized()">Guest</p>
 
         <mat-divider></mat-divider>
 
@@ -23,17 +25,17 @@
             <span>Home</span>
         </button>
 
-        <button mat-button class="menu-button" routerLink="/login">
+        <button mat-button class="menu-button" *ngIf="!isAuthorized()" routerLink="/login">
             <mat-icon>login</mat-icon>
             <span>Login</span>
         </button>
 
-        <button mat-button class="menu-button" routerLink="/registration">
+        <button mat-button class="menu-button" *ngIf="!isAuthorized()" routerLink="/registration">
             <mat-icon>person_add</mat-icon>
             <span>Registration</span>
         </button>
 
-        <button mat-button class="menu-button" *ngIf="authorized" routerLink="/profile">
+        <button mat-button class="menu-button" *ngIf="isAuthorized()" routerLink="/profile">
             <mat-icon>person</mat-icon>
             <span>Profile</span>
         </button>
@@ -50,7 +52,7 @@
             <span>Help</span>
         </button>
 
-        <button mat-button class="menu-button">
+        <button mat-button class="menu-button" *ngIf="isAuthorized()" (click)="openDialog()">
             <mat-icon>logout</mat-icon>
             <span>Logout</span>
         </button>

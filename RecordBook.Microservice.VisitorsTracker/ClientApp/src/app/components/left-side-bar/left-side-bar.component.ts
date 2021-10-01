@@ -1,7 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AppGlobalState } from 'src/app/app.global.state';
+import { UserProfile } from 'src/app/models/user.profile.model';
+import { UserService } from 'src/app/services/userService';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmLogoutComponent } from '../dialog-confirm-logout/dialog-confirm-logout.component';
 
 @Component({
   selector: 'app-left-side-bar',
@@ -12,17 +17,24 @@ export class LeftSideBarComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  public user;
-  public authorized;
+  public user: UserProfile;
 
-  constructor(private observer: BreakpointObserver) {
-    this.user = AppGlobalState.user;
-    this.authorized = AppGlobalState.authorized;
+  constructor(private observer: BreakpointObserver, 
+    private userService: UserService,
+    private sanitizer:DomSanitizer,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.user = AppGlobalState.user;
-    this.authorized = AppGlobalState.authorized;
+    this.user = this.userService.getUser();
+  }
+
+  getUser() {
+    return this.userService.getUser();
+  }
+
+  isAuthorized() {
+    return this.userService.isLoggedIn();
   }
 
   ngAfterViewInit() {
@@ -34,6 +46,23 @@ export class LeftSideBarComponent {
         this.sidenav.mode = 'side';
         this.sidenav.open();
       }
+    });
+  }
+
+  getNameOfUser() {
+    return this.userService.getUser().email.match(/^([^@]*)@/)[1];
+  }
+
+  getAvatar() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogConfirmLogoutComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
     });
   }
 }

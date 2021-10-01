@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System.Threading.Tasks;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Shared.Entities;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Web.Controllers
 {
@@ -11,15 +13,18 @@ namespace VisitorsTracker.Web.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        
-        public UserController(IUserService userService)
+        private readonly IMapper _mapper;
+
+        public UserController(IUserService userService,
+            IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<IActionResult> AddUser([FromBody] User user)
+        public async Task<IActionResult> Register([FromBody] User user)
         {
             return Ok(await _userService.Create(user));
         }
@@ -33,9 +38,11 @@ namespace VisitorsTracker.Web.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login(User user)
+        public IActionResult Login(UserLoginViewModel user)
         {
-            return Ok(_userService.Authenticate(user));
+            var loggedInUser = _mapper.Map<User, UserProfileViewModel>(_userService.Authenticate(user));
+
+            return Ok(loggedInUser);
         }
     }
 }

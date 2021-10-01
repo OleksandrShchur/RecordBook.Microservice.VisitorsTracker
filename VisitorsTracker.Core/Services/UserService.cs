@@ -6,6 +6,7 @@ using VisitorsTracker.Core.Infrustructure;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Db.EFCore;
 using VisitorsTracker.Shared.Entities;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Core.Services
 {
@@ -41,7 +42,7 @@ namespace VisitorsTracker.Core.Services
 
         public List<User> GetAllUsers() => _context.Users.ToList();
 
-        public User Authenticate(User user)
+        public User Authenticate(UserLoginViewModel user)
         {
             var userFromDb = GetByEmail(user.Email);
 

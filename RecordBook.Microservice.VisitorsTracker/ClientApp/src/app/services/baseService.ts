@@ -3,11 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BaseService {
-    protected _baseUrl: string = 'https://localhost:44335/api/';
-    protected _authUrl: string = "https://localhost:44327/";
-    protected _http: HttpClient;
+    protected baseUrl: string = 'https://localhost:44335/api/';
+    protected authUrl: string = "https://localhost:44327/";
 
-    constructor(http: HttpClient) {
-        this._http = http;
-    }
+    constructor(protected http: HttpClient) { }
 }

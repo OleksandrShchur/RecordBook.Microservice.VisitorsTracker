@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -27,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HelpComponent } from './components/help/help.component';
+import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout/dialog-confirm-logout.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { HelpComponent } from './components/help/help.component';
     RegistrationComponent,
     HomeComponent,
     AboutUsComponent,
-    HelpComponent
+    HelpComponent,
+    DialogConfirmLogoutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -59,7 +62,8 @@ import { HelpComponent } from './components/help/help.component';
     MatDividerModule,
     AppRoutingModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [BaseService, AuthService, UserService, HttpClient],
   bootstrap: [AppComponent]
