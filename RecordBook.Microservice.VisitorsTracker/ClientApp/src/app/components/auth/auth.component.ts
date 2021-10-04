@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import AuthService from '../../services/authService';
+import { AuthService } from '../../services/authService';
 
 @Component({
   selector: 'app-auth',
@@ -29,7 +29,7 @@ export class AuthComponent {
       this.message = 'Login success';
       this.done = true;
     },
-      error => {
+      (      error: any) => {
         console.log(error);
         this.message = 'Login failed';
       });

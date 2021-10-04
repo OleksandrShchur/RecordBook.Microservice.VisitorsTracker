@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VisitorsTracker.Core.Infrustructure;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Db.EFCore;
 using VisitorsTracker.Shared.Entities;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Core.Services
 {
@@ -24,6 +26,8 @@ namespace VisitorsTracker.Core.Services
                 throw new Exception("User already exist in database");
             }
 
+            (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
+
             var result = await InsertAsync(user);
 
             if(result.Email != user.Email || result.Id == Guid.Empty)
@@ -34,14 +38,21 @@ namespace VisitorsTracker.Core.Services
             return result;
         }
 
-        public User GetByEmail(string email)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-
-            return user;
-        }
+        public User GetByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
 
         public List<User> GetAllUsers() => _context.Users.ToList();
+
+        public User Authenticate(UserLoginViewModel user)
+        {
+            var userFromDb = GetByEmail(user.Email);
+
+            if(userFromDb.Password != PasswordHasher.HashPassword(user.Password, userFromDb.Salt))
+            {
+                throw new Exception("Passwords does not match");
+            }
+
+            return userFromDb;
+        }
 
         private bool UserExistence(User user) => 
             GetByEmail(user.Email) != null && !string.IsNullOrEmpty(user.Email);

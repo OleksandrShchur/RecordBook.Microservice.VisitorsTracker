@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using System;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Core.Services;
 using VisitorsTracker.Db.EFCore;
+using VisitorsTracker.Web.Mapping;
 using VisitorsTracker.Web.Middlewares;
 
 namespace RecordBook.Microservice.VisitorsTracker
@@ -66,6 +68,17 @@ namespace RecordBook.Microservice.VisitorsTracker
             #region Configure our services...
             services.AddScoped<IUserService, UserService>();
             #endregion
+
+            // register AutoMapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserMapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,22 +1,60 @@
-<div class="container">
-    <h3>New user</h3>
+<div class="main-content">
 
-    <form [formGroup]="profileForm" (ngSubmit)="submitUser()" class="form-group">
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Profile
+                </mat-panel-title>
+                <mat-panel-description>
+                    Visitors Tracker System
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-        <label for="email">Email: </label>
-        <input id="email" type="email" formControlName="email" class="form-control">
-        <br />
-        <label for="phone">Phone: </label>
-        <input id="phone" type="text" formControlName="phone" class="form-control">
-        <br />
-        <label for="birtday">Birthday: </label>
-        <input id="birthday" type="date" formControlName="birthday" class="form-control">
-        <br />
-        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">Add User</button>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Email
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getEmail()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-    </form>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Phone
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getPhone()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-    <br />
-    <button class="button" (click)="getListOfUsers()" class="btn btn-outline-dark">Get Users</button>
-    <app-user-list [users]="userList" *ngIf="showListOfUsers"></app-user-list>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Birthday
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getBirthday()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Roles
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getRoles()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Groups
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{getGroups()}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

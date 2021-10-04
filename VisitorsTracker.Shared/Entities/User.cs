@@ -18,6 +18,8 @@ namespace VisitorsTracker.Shared.Entities
 
         public string Password { get; set; }
 
+        public string Salt { get; set; }
+
         public IList<UserRole> UserRoles { get; set; }
 
         public IList<UserGroup> UserGroups { get; set; }

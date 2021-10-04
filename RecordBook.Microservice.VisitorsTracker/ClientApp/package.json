@@ -8,7 +8,8 @@
     "build:ssr": "ng run Sample:server:dev",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -56,7 +57,7 @@
   },
   "optionalDependencies": {
     "node-sass": "^3.4.2",
-    "protractor": "~5.4.2",
+    "protractor": "^7.0.0",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0"
   }

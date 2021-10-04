@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, NgModule } from '@angular/core';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User } from 'src/app/models/user.model';
-
+import { Component } from '@angular/core';
+import { UserProfile } from 'src/app/models/user.profile.model';
+import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/userService';
+ 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -10,27 +12,17 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserProfileComponent {
   public showListOfUsers: Boolean = false;
-  profileForm = new FormGroup({
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    birthday: new FormControl(''),
-  });
+  private userFromDb = new UserProfile;
 
-  userList: User | any;
+  userList: UserProfile | any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
+    private userService: UserService) { }
 
-  submitUser() {
-    let user = new User();
-    user = this.profileForm.value;
-    console.log(user);
-
-    this.http.post("https://localhost:44335/api/User/AddUser", user).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      error => console.log(error)
-    );
+  ngOnInit() {
+    this.userFromDb = this.userService.getUser();
   }
 
   getListOfUsers() {
@@ -42,4 +34,16 @@ export class UserProfileComponent {
       error => console.log(error)
     );
   }
+
+  getAvatar = () => this.sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
+
+  getEmail = () => this.userFromDb.email;
+
+  getPhone = () => this.userFromDb.phone;
+
+  getBirthday = () => new Date(this.userFromDb.birthday).toDateString();
+
+  getRoles = () => this.userFromDb.roles;
+
+  getGroups = () => this.userFromDb.groups;
 }
