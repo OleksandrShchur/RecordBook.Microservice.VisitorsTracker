@@ -28,6 +28,8 @@ export class UserService extends BaseService {
 
     logoutUser() {
         sessionStorage.clear();
+        this.loggedInStatus = false;
+        this.user = null;
     }
     
     loginUser(body: UserLogin) {
