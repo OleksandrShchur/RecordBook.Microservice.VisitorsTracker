@@ -12,11 +12,14 @@ namespace VisitorsTracker.Core.Services
 {
     public class UserService : BaseService<User>, IUserService
     {
+
+        private readonly IUserRoleService _userRoleService;
         public UserService(
-            AppDbContext context) 
+            AppDbContext context,
+            IUserRoleService userRoleService) 
             : base(context)
         {
-
+            _userRoleService = userRoleService;
         }
 
         public async Task<User> Create(User user)
@@ -27,13 +30,14 @@ namespace VisitorsTracker.Core.Services
             }
 
             (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
-
             var result = await InsertAsync(user);
 
             if(result.Email != user.Email || result.Id == Guid.Empty)
             {
                 throw new Exception("Adding failed");
             }
+
+            await _userRoleService.GrandDefaultRole(result.Id);
 
             return result;
         }

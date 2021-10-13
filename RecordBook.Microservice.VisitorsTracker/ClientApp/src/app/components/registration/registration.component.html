@@ -9,6 +9,14 @@
         <input id="phone" type="text" formControlName="phone" class="form-control">
         <label for="birtday">Birthday: </label>
         <input id="birthday" type="date" formControlName="birthday" class="form-control">
+        <mat-form-field appearance="fill">
+            <mat-label>Gender</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let gender of genders" [value]="gender">
+                    {{gender}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         <label for="password">Password: </label>
         <input id="password" type="password" formControlName="password" class="form-control">
         <br />

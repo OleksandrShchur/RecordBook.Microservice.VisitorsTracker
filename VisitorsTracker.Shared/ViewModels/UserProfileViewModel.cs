@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VisitorsTracker.Shared.Entities;
 using VisitorsTracker.Shared.Enums;
 
@@ -21,8 +19,8 @@ namespace VisitorsTracker.Shared.ViewModels
 
         public string PhotoUrl { get; set; }
 
-        public IList<UserRole> UserRoles { get; set; }
+        public IList<Role> UserRoles { get; set; }
 
-        public IList<UserGroup> UserGroups { get; set; }
+        public IList<Group> UserGroups { get; set; }
     }
 }

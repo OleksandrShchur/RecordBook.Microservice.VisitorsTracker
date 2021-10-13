@@ -15,7 +15,8 @@ namespace VisitorsTracker.Web.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService,
+        public UserController(
+            IUserService userService,
             IMapper mapper)
         {
             _userService = userService;
@@ -26,7 +27,9 @@ namespace VisitorsTracker.Web.Controllers
         [Route("AddUser")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
-            return Ok(await _userService.Create(user));
+            var newUser = _mapper.Map<User, UserProfileViewModel>(await _userService.Create(user));
+
+            return Ok(newUser);
         }
 
         [HttpGet]

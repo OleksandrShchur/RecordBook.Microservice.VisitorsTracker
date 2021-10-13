@@ -36,7 +36,7 @@ export class UserService extends BaseService {
         return this.http.post<UserProfile>(this.baseUrl + 'User/Login', body);
     }
 
-    register(body: UserRegistration) {
-        return this.http.post<UserProfile>(this.baseUrl + 'User/Register', body);
+    registerUser(body: UserRegistration) {
+        return this.http.post<UserProfile>(this.baseUrl + 'User/AddUser', body);
     }
 }
