@@ -12,6 +12,9 @@ import { genders } from 'src/app/constants/genders';
 })
 export class RegistrationComponent{
 
+  public genderTypes = genders;
+  public selectedGender = 'Undefined';
+
   profileForm = new FormGroup({
     email: new FormControl(''),
     phone: new FormControl(''),
@@ -32,6 +35,7 @@ export class RegistrationComponent{
     user.phone = this.profileForm.value.phone;
     user.birthday = this.profileForm.value.birthday;
     user.password = this.profileForm.value.password;
+    user.gender = genders.indexOf(this.profileForm.value.gender);
 
     this.userService.registerUser(user).subscribe(
       (data: any) => {

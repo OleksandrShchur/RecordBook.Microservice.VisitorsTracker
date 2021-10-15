@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,27 +15,33 @@ namespace VisitorsTracker.Core.Services
     {
 
         private readonly IUserRoleService _userRoleService;
+        private readonly IMapper _mapper;
+
         public UserService(
             AppDbContext context,
-            IUserRoleService userRoleService) 
+            IUserRoleService userRoleService,
+            IMapper mapper) 
             : base(context)
         {
             _userRoleService = userRoleService;
+            _mapper = mapper;
         }
 
-        public async Task<User> Create(User user)
+        public async Task<User> Create(UserCreateViewModel newUser)
         {
-            if(UserExistence(user))
+            if(UserExistence(newUser.Email))
             {
                 throw new Exception("User already exist in database");
             }
+
+            var user = _mapper.Map<UserCreateViewModel, User>(newUser);
 
             (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
             var result = await InsertAsync(user);
 
             if(result.Email != user.Email || result.Id == Guid.Empty)
             {
-                throw new Exception("Adding failed");
+                throw new Exception("Adding user failed");
             }
 
             await _userRoleService.GrandDefaultRole(result.Id);
@@ -58,7 +65,7 @@ namespace VisitorsTracker.Core.Services
             return userFromDb;
         }
 
-        private bool UserExistence(User user) => 
-            GetByEmail(user.Email) != null && !string.IsNullOrEmpty(user.Email);
+        private bool UserExistence(string userEmail) => 
+            GetByEmail(userEmail) != null && !string.IsNullOrEmpty(userEmail);
     }
 }

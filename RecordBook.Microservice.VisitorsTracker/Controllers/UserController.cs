@@ -25,7 +25,7 @@ namespace VisitorsTracker.Web.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<IActionResult> Register([FromBody] User user)
+        public async Task<IActionResult> AddUser(UserCreateViewModel user)
         {
             var newUser = _mapper.Map<User, UserProfileViewModel>(await _userService.Create(user));
 

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using VisitorsTracker.Shared.Entities;
+﻿using VisitorsTracker.Shared.Entities;
 using VisitorsTracker.Shared.ViewModels;
 using AutoMapper;
+using System.Linq;
 
 namespace VisitorsTracker.Web.Mapping
 {
@@ -12,13 +9,25 @@ namespace VisitorsTracker.Web.Mapping
     {
         public UserMapperProfile()
         {
-            CreateMap<User, UserProfileViewModel>();
+            CreateMap<User, UserProfileViewModel>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(x => x.Role.Name)));
 
             CreateMap<User, UserLoginViewModel>();
+
+            CreateMap<User, UserCreateViewModel>();
 
             CreateMap<UserProfileViewModel, User>();
 
             CreateMap<UserLoginViewModel, User>();
+
+            CreateMap<UserCreateViewModel, User>();
+
+            CreateMap<UserRole, UserProfileViewModel>();
+
+            CreateMap<UserRole, Role>()
+                .ForMember(dest => dest.UserRoles, opt => opt.Ignore());
+
+            CreateMap<Role, UserRole>();
         }
     }
 }

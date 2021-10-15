@@ -3,4 +3,5 @@ export class UserRegistration {
     phone: string
     birthday: Date;
     password: string;
+    gender: number;
 }

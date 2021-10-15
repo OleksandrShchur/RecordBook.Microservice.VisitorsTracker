@@ -31,7 +31,7 @@ namespace VisitorsTracker.Core.Services
 
             if(result.UserId == Guid.Empty || result.RoleId == Guid.Empty)
             {
-                throw new Exception("Adding failed");
+                throw new Exception("Adding user role failed");
             }
         }
     }

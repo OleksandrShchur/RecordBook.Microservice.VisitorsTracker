@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -63,7 +64,8 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
     AppRoutingModule,
     MatCardModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [BaseService, AuthService, UserService, HttpClient],
   bootstrap: [AppComponent]
