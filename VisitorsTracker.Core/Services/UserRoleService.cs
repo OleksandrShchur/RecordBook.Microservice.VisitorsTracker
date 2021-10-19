@@ -23,15 +23,25 @@ namespace VisitorsTracker.Core.Services
         {
             var role = _context.Roles.FirstOrDefault(r => r.Name == defaultRole);
 
-            var userRole = new UserRole();
-            userRole.UserId = userId;
-            userRole.RoleId = role.Id;
+            var userRole = new UserRole() { UserId = userId, RoleId = role.Id };
 
             var result = await InsertAsync(userRole);
 
             if(result.UserId == Guid.Empty || result.RoleId == Guid.Empty)
             {
-                throw new Exception("Adding user role failed");
+                throw new Exception("Adding user default role failed");
+            }
+        }
+
+        public async Task PromoteToRole(Guid userId, Guid roleId)
+        {
+            var userRole = new UserRole() { UserId = userId, RoleId = roleId };
+
+            var result = await InsertAsync(userRole);
+
+            if(result.UserId == Guid.Empty || result.RoleId == Guid.Empty)
+            {
+                throw new Exception("Promotion to new role failed");
             }
         }
     }

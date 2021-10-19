@@ -9,5 +9,7 @@ namespace VisitorsTracker.Core.IServices
     public interface IUserRoleService
     {
         Task GrandDefaultRole(Guid userId);
+
+        Task PromoteToRole(Guid userId, Guid roleId);
     }
 }

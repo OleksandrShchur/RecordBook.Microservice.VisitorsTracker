@@ -7,7 +7,7 @@
                     Profile
                 </mat-panel-title>
                 <mat-panel-description>
-                    Visitors Tracker System
+                    {{getNameOfUser()}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -43,11 +43,11 @@
                     Roles
                 </mat-panel-title>
                 <mat-panel-description>
-                    {{getRoles()}}
+                    {{getRoleNames()}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header *ngIf="!isGuestOnly()">
                 <mat-panel-title>
                     Groups
                 </mat-panel-title>

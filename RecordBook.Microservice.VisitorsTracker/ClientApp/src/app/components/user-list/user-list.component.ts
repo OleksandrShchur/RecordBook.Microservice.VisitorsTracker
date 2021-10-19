@@ -1,5 +1,4 @@
-import { Component, Input, NgIterable } from '@angular/core';
-import { UserProfile } from 'src/app/models/user.profile.model';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-list',
@@ -7,7 +6,6 @@ import { UserProfile } from 'src/app/models/user.profile.model';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent{
-  @Input() users: NgIterable<UserProfile> | any;
 
   constructor() { }
 

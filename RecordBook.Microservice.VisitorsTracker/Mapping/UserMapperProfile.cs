@@ -10,7 +10,10 @@ namespace VisitorsTracker.Web.Mapping
         public UserMapperProfile()
         {
             CreateMap<User, UserProfileViewModel>()
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(x => x.Role.Name)));
+                .ForMember(dest => dest.Roles,
+                    opt => opt.MapFrom(src => src.UserRoles.Select(
+                        x => new RoleItemViewModel() { Id = x.Role.Id, Name = x.Role.Name }).ToList()))
+                .ForMember(dest => dest.Birthday, opt => opt.MapFrom(src => src.Birthday.Date));
 
             CreateMap<User, UserLoginViewModel>();
 

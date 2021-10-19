@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,13 @@ namespace VisitorsTracker.Core.Services
             return result;
         }
 
-        public User GetByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
+        public User GetByEmail(string email)
+        {
+            return _context.Users
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault(u => u.Email == email);
+        }
 
         public List<User> GetAllUsers() => _context.Users.ToList();
 
@@ -57,7 +64,7 @@ namespace VisitorsTracker.Core.Services
         {
             var userFromDb = GetByEmail(user.Email);
 
-            if(userFromDb.Password != PasswordHasher.HashPassword(user.Password, userFromDb.Salt))
+            if(userFromDb != null && userFromDb?.Password != PasswordHasher.HashPassword(user.Password, userFromDb?.Salt))
             {
                 throw new Exception("Passwords does not match");
             }

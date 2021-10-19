@@ -19,7 +19,7 @@ namespace VisitorsTracker.Shared.ViewModels
 
         public string PhotoUrl { get; set; }
 
-        public IList<string> Roles { get; set; }
+        public IList<RoleItemViewModel> Roles { get; set; }
 
         public IList<Group> Groups { get; set; }
     }
