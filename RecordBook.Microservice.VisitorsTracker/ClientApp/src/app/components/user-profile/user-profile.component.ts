@@ -8,11 +8,9 @@ import { UserService } from 'src/app/services/userService';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent {
-  public showListOfUsers: Boolean = false;
   private userFromDb = new UserProfile;
   
   private readonly guest: string = "Guest";
-  private readonly admin: string = "Admin";
 
   userList: UserProfile | any;
 
@@ -43,6 +41,7 @@ export class UserProfileComponent {
     return this.userFromDb.groups;
   }
 
+  // check if user is only in role Guest
   isGuestOnly() {
     return this.userFromDb.roles.some(x => x.name === this.guest) && this.userFromDb.roles.length === 1;
   }

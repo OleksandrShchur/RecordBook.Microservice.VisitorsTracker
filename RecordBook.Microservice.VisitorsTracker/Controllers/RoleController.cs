@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using VisitorsTracker.Core.IServices;
 
 namespace VisitorsTracker.Web.Controllers
@@ -16,11 +15,13 @@ namespace VisitorsTracker.Web.Controllers
             _userRoleService = userRoleService;
         }
 
-        [HttpPost]
-        [Route("PromoteUser")]
-        public IActionResult PromoteUser(Guid userId, string roleName)
+        [HttpGet]
+        [Route("GetAllRoles")]
+        public IActionResult GetAllRoles()
         {
-            return Ok();
+            var roles = _userRoleService.GetAll();
+
+            return Ok(roles);
         }
     }
 }

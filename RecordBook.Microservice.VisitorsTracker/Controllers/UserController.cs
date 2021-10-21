@@ -37,7 +37,9 @@ namespace VisitorsTracker.Web.Controllers
         [Route("GetUsers")]
         public IActionResult GetUsers()
         {
-            return Ok(_userService.GetAllUsers());
+            var users = _userService.GetAllUsers();
+
+            return Ok(users);
         }
 
         [HttpPost]
@@ -47,6 +49,15 @@ namespace VisitorsTracker.Web.Controllers
             var loggedInUser = _mapper.Map<User, UserProfileViewModel>(_userService.Authenticate(user));
 
             return Ok(loggedInUser);
+        }
+
+        [HttpGet]
+        [Route("GetUserById/{id}")]
+        public IActionResult GetUserById(Guid id)
+        {
+            var user = _mapper.Map<User, UserProfileViewModel>(_userService.GetById(id));
+
+            return Ok(user);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VisitorsTracker.Shared.Entities;
 using VisitorsTracker.Shared.ViewModels;
@@ -11,7 +12,9 @@ namespace VisitorsTracker.Core.IServices
 
         User GetByEmail(string email);
 
-        List<User> GetAllUsers();
+        User GetById(Guid id);
+
+        List<UserListViewModel> GetAllUsers();
 
         User Authenticate(UserLoginViewModel user);
     }

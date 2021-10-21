@@ -76,6 +76,7 @@ namespace RecordBook.Microservice.VisitorsTracker
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new UserMapperProfile());
+                mc.AddProfile(new RoleMapperProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

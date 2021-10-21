@@ -12,14 +12,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './components/auth/auth.component';
-import { AuthService } from './services/authService';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BaseService } from './services/baseService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UserListComponent } from './components/user-list/user-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
@@ -30,13 +34,14 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HelpComponent } from './components/help/help.component';
 import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout/dialog-confirm-logout.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
+import { RoleService } from './services/roleService';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     UserProfileComponent,
-    UserListComponent,
     LoginComponent,
     LogoutComponent,
     LeftSideBarComponent,
@@ -44,7 +49,9 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
     HomeComponent,
     AboutUsComponent,
     HelpComponent,
-    DialogConfirmLogoutComponent
+    DialogConfirmLogoutComponent,
+    UserSearchComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +59,7 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: AuthComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
     ]),
     BrowserAnimationsModule,
     BrowserModule,
@@ -65,9 +72,21 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
     MatCardModule,
     MatExpansionModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ],
-  providers: [BaseService, AuthService, UserService, HttpClient],
+  providers: [
+    HttpClient,
+    BaseService,
+    UserService,
+    RoleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,10 +3,11 @@ import { UserProfile } from "../models/user.profile.model";
 import { UserLogin } from "../models/user.login.model";
 import { UserRegistration } from "../models/user.registration.model";
 import { Injectable } from "@angular/core";
+import { UserList } from "../models/user.list.model";
 
 @Injectable()
 export class UserService extends BaseService {
-    private user: UserProfile = JSON.parse(sessionStorage.getItem('userLoggedIn')); // в конструкторі взяти юзера якщо є, інакше setUser
+    private user: UserProfile = JSON.parse(sessionStorage.getItem('userLoggedIn'));
     private loggedInStatus = JSON.parse(sessionStorage.getItem('loggedInStatus') || 'false');
 
     isLoggedIn() {
@@ -38,5 +39,13 @@ export class UserService extends BaseService {
 
     registerUser(body: UserRegistration) {
         return this.http.post<UserProfile>(this.baseUrl + 'User/AddUser', body);
+    }
+
+    getUserList() {
+        return this.http.get<Array<UserList>>(this.baseUrl + 'User/GetUsers');
+    }
+
+    getUserById(id: string) {
+        return this.http.get<UserProfile>(this.baseUrl + 'User/GetUserById/' + id);
     }
 }

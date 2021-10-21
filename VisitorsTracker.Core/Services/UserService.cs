@@ -52,13 +52,34 @@ namespace VisitorsTracker.Core.Services
 
         public User GetByEmail(string email)
         {
-            return _context.Users
+            var user = _context.Users
                 .Include(x => x.UserRoles)
                 .ThenInclude(x => x.Role)
                 .FirstOrDefault(u => u.Email == email);
+
+            return user;
         }
 
-        public List<User> GetAllUsers() => _context.Users.ToList();
+        public User GetById(Guid id)
+        {
+            var user = _context.Users
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault(u => u.Id == id);
+
+            return user;
+        }
+
+        public List<UserListViewModel> GetAllUsers()
+        {
+            var users = _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(u => u.Role)
+                .Select(u => _mapper.Map<User, UserListViewModel>(u))
+                .ToList();
+
+            return users;
+        }
 
         public User Authenticate(UserLoginViewModel user)
         {
@@ -72,7 +93,12 @@ namespace VisitorsTracker.Core.Services
             return userFromDb;
         }
 
-        private bool UserExistence(string userEmail) => 
-            GetByEmail(userEmail) != null && !string.IsNullOrEmpty(userEmail);
+        private bool UserExistence(string userEmail)
+        {
+            var userExist = GetByEmail(userEmail) != null && !string.IsNullOrEmpty(userEmail);
+
+            return userExist;
+        }
+            
     }
 }

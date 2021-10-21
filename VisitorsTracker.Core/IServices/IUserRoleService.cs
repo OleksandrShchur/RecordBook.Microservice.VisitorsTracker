@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Core.IServices
 {
@@ -10,6 +9,6 @@ namespace VisitorsTracker.Core.IServices
     {
         Task GrandDefaultRole(Guid userId);
 
-        Task PromoteToRole(Guid userId, Guid roleId);
+        List<RoleItemViewModel> GetAll();
     }
 }

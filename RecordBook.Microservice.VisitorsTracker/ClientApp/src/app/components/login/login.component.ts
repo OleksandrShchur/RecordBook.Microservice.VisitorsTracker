@@ -31,10 +31,10 @@ export class LoginComponent {
 
     this.userService.loginUser(user).subscribe(
       (data: UserProfile) => {
-        this.message = "Login success";
-        this.router.navigate(['profile']);
-        
+        this.message = "Login success";        
         this.userService.setUser(data);
+
+        this.router.navigate(['profile']);
       },
       error => console.log(error)
     );

@@ -17,7 +17,7 @@ namespace VisitorsTracker.Shared.ViewModels
 
         public Gender Gender { get; set; }
 
-        public string PhotoUrl { get; set; }
+        public string Avatar { get; set; }
 
         public IList<RoleItemViewModel> Roles { get; set; }
 
