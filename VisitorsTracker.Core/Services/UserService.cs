@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,41 +14,78 @@ namespace VisitorsTracker.Core.Services
 {
     public class UserService : BaseService<User>, IUserService
     {
+
+        private readonly IUserRoleService _userRoleService;
+        private readonly IMapper _mapper;
+
         public UserService(
-            AppDbContext context) 
+            AppDbContext context,
+            IUserRoleService userRoleService,
+            IMapper mapper) 
             : base(context)
         {
-
+            _userRoleService = userRoleService;
+            _mapper = mapper;
         }
 
-        public async Task<User> Create(User user)
+        public async Task<User> Create(UserCreateViewModel newUser)
         {
-            if(UserExistence(user))
+            if(UserExistence(newUser.Email))
             {
                 throw new Exception("User already exist in database");
             }
 
-            (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
+            var user = _mapper.Map<UserCreateViewModel, User>(newUser);
 
-            var result = await InsertAsync(user);
+            (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
+            var result = await Insert(user);
 
             if(result.Email != user.Email || result.Id == Guid.Empty)
             {
-                throw new Exception("Adding failed");
+                throw new Exception("Adding user failed");
             }
+
+            await _userRoleService.GrantDefaultRole(result.Id);
 
             return result;
         }
 
-        public User GetByEmail(string email) => _context.Users.FirstOrDefault(u => u.Email == email);
+        public User GetByEmail(string email)
+        {
+            var user = _context.Users
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault(u => u.Email == email);
 
-        public List<User> GetAllUsers() => _context.Users.ToList();
+            return user;
+        }
+
+        public User GetById(Guid id)
+        {
+            var user = _context.Users
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .FirstOrDefault(u => u.Id == id);
+
+            return user;
+        }
+
+        public List<UserListViewModel> GetAllUsers()
+        {
+            var users = _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(u => u.Role)
+                .Select(u => _mapper.Map<User, UserListViewModel>(u))
+                .ToList();
+
+            return users;
+        }
 
         public User Authenticate(UserLoginViewModel user)
         {
             var userFromDb = GetByEmail(user.Email);
 
-            if(userFromDb.Password != PasswordHasher.HashPassword(user.Password, userFromDb.Salt))
+            if(userFromDb != null && userFromDb?.Password != PasswordHasher.HashPassword(user.Password, userFromDb?.Salt))
             {
                 throw new Exception("Passwords does not match");
             }
@@ -54,7 +93,24 @@ namespace VisitorsTracker.Core.Services
             return userFromDb;
         }
 
-        private bool UserExistence(User user) => 
-            GetByEmail(user.Email) != null && !string.IsNullOrEmpty(user.Email);
+        public async Task DeleteUser(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = GetById(id);
+
+            await Delete(user);
+        }
+
+        private bool UserExistence(string userEmail)
+        {
+            var userExist = GetByEmail(userEmail) != null && !string.IsNullOrEmpty(userEmail);
+
+            return userExist;
+        }
+            
     }
 }

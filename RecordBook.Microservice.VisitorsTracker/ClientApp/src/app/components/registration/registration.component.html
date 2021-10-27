@@ -9,10 +9,20 @@
         <input id="phone" type="text" formControlName="phone" class="form-control">
         <label for="birtday">Birthday: </label>
         <input id="birthday" type="date" formControlName="birthday" class="form-control">
+        <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select [(value)]="selectedGender" formControlName="gender">
+                <mat-option *ngFor="let gender of genderTypes" [value]="gender">
+                    {{gender}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br />
         <label for="password">Password: </label>
         <input id="password" type="password" formControlName="password" class="form-control">
         <br />
-        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">Add User</button>
+        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">Add
+            User</button>
 
     </form>
     <span>{{message}}</span>

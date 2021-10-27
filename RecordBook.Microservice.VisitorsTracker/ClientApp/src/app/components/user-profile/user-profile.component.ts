@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { UserProfile } from 'src/app/models/user.profile.model';
-import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
-import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/userService';
  
 @Component({
@@ -11,39 +8,45 @@ import { UserService } from 'src/app/services/userService';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent {
-  public showListOfUsers: Boolean = false;
   private userFromDb = new UserProfile;
+  
+  private readonly guest: string = "Guest";
 
   userList: UserProfile | any;
 
   constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
     private userService: UserService) { }
 
   ngOnInit() {
     this.userFromDb = this.userService.getUser();
   }
 
-  getListOfUsers() {
-    this.http.get("https://localhost:44335/api/User/GetUsers").subscribe(
-      (data: any) => {
-        this.userList = data;
-        this.showListOfUsers = true;
-      },
-      error => console.log(error)
-    );
+  getEmail() {
+    return this.userFromDb.email;
   }
 
-  getAvatar = () => this.sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage);
+  getPhone() {
+    return this.userFromDb.phone;
+  }
 
-  getEmail = () => this.userFromDb.email;
+  getBirthday() {
+    return new Date(this.userFromDb.birthday).toDateString();
+  }
 
-  getPhone = () => this.userFromDb.phone;
+  getRoleNames() {
+    return this.userFromDb.roles.map(x => x.name);
+  }
 
-  getBirthday = () => new Date(this.userFromDb.birthday).toDateString();
+  getGroups() {
+    return this.userFromDb.groups;
+  }
 
-  getRoles = () => this.userFromDb.roles;
+  // check if user is only in role Guest
+  isGuestOnly() {
+    return this.userFromDb.roles.some(x => x.name === this.guest) && this.userFromDb.roles.length === 1;
+  }
 
-  getGroups = () => this.userFromDb.groups;
+  getNameOfUser() {
+    return this.userFromDb.email.match(/^([^@]*)@/)[1];
+  }
 }

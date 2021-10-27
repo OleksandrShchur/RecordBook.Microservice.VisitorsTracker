@@ -1,13 +1,19 @@
 <div class="main-content">
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+        </ol>
+    </nav>
+
     <mat-accordion>
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Profile
+                    Name
                 </mat-panel-title>
                 <mat-panel-description>
-                    Visitors Tracker System
+                    {{getNameOfUser()}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -43,11 +49,11 @@
                     Roles
                 </mat-panel-title>
                 <mat-panel-description>
-                    {{getRoles()}}
+                    {{getRoleNames()}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header *ngIf="!isGuestOnly()">
                 <mat-panel-title>
                     Groups
                 </mat-panel-title>

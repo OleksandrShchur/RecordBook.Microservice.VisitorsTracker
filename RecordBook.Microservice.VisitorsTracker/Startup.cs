@@ -38,7 +38,9 @@ namespace RecordBook.Microservice.VisitorsTracker
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             // In production, the Angular files will be served from this directory
 
             services.AddCors(options =>
@@ -67,12 +69,14 @@ namespace RecordBook.Microservice.VisitorsTracker
 
             #region Configure our services...
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRoleService, UserRoleService>();
             #endregion
 
             // register AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new UserMapperProfile());
+                mc.AddProfile(new RoleMapperProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

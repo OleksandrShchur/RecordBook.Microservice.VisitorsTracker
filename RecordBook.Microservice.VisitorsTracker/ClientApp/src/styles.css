@@ -25,7 +25,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: calc(100vh - 100px);
   width: 80%;
   border-radius: 10px;
-  margin: 100px 16px 16px 250px;
+  margin: 80px 16px 16px 250px;
 
   display: flexbox;
   justify-content: center;

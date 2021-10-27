@@ -11,8 +11,6 @@ import { UserProfile } from 'src/app/models/user.profile.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private _userService: UserService;
-  private _router: Router;
 
   loginForm = new FormGroup({
     email: new FormControl(''),
@@ -21,9 +19,8 @@ export class LoginComponent {
 
   public message: string = '';
 
-  constructor(userService: UserService, router: Router) {
-    this._userService = userService;
-    this._router = router;
+  constructor(private userService: UserService,
+    private router: Router) {
   }
 
   loginUser() {
@@ -32,13 +29,12 @@ export class LoginComponent {
     user.password = this.loginForm.value.password;
 
 
-    this._userService.loginUser(user).subscribe(
+    this.userService.loginUser(user).subscribe(
       (data: UserProfile) => {
-        this.message = "Login success";
-        this._router.navigate(['profile']);
-        
-        this._userService.setUser(data);
-        console.log(sessionStorage.getItem('userLoggedIn'));
+        this.message = "Login success";        
+        this.userService.setUser(data);
+
+        this.router.navigate(['profile']);
       },
       error => console.log(error)
     );

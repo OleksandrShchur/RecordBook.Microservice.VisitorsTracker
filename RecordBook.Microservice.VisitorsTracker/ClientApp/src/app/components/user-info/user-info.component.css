@@ -1,0 +1,13 @@
+.titleName {
+    margin-right: 25px;
+    width: 70px;
+}
+
+.leftSpace {
+    margin-left: 15px;
+}
+
+.actionProfile {
+    display: flex;
+    flex-direction: row-reverse;
+}

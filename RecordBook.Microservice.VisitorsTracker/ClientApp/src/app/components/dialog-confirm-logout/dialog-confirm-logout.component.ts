@@ -21,7 +21,7 @@ export class DialogConfirmLogoutComponent {
 
   logout(): void {
     this.userService.logoutUser();
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
     this.dialogRef.close();
   }
 }

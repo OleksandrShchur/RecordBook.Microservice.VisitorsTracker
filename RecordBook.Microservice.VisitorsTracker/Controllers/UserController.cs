@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
 using System.Threading.Tasks;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Shared.Entities;
@@ -15,7 +16,8 @@ namespace VisitorsTracker.Web.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService,
+        public UserController(
+            IUserService userService,
             IMapper mapper)
         {
             _userService = userService;
@@ -24,16 +26,20 @@ namespace VisitorsTracker.Web.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<IActionResult> Register([FromBody] User user)
+        public async Task<IActionResult> AddUser(UserCreateViewModel user)
         {
-            return Ok(await _userService.Create(user));
+            var newUser = _mapper.Map<User, UserProfileViewModel>(await _userService.Create(user));
+
+            return Ok(newUser);
         }
 
         [HttpGet]
         [Route("GetUsers")]
         public IActionResult GetUsers()
         {
-            return Ok(_userService.GetAllUsers());
+            var users = _userService.GetAllUsers();
+
+            return Ok(users);
         }
 
         [HttpPost]
@@ -44,5 +50,24 @@ namespace VisitorsTracker.Web.Controllers
 
             return Ok(loggedInUser);
         }
+
+        [HttpGet]
+        [Route("GetUserById/{id}")]
+        public IActionResult GetUserById(Guid id)
+        {
+            var user = _mapper.Map<User, UserProfileViewModel>(_userService.GetById(id));
+
+            return Ok(user);
+        }
+
+        [HttpDelete]
+        [Route("DeleteUser/{id}")]
+        public IActionResult DeleteUser(Guid id)
+        {
+            _userService.DeleteUser(id);
+
+            return Ok();
+        }
+
     }
 }

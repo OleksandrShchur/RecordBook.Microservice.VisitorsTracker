@@ -1,0 +1,100 @@
+<div class="main-content">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+        </ol>
+    </nav>
+
+    <mat-card class="page-content">
+        <div class="row">
+            <div class="col col-md-4">
+                <img class="leftSpace" [src]="getAvatar()" width="200" height="200" />
+            </div>
+
+            <div class="col col-md-8">
+
+                <form class="edit-form">
+
+                    <div class="form-group">
+                        <span class="titleName">Name</span>
+                        <span>
+                            {{getUserName()}}
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="titleName">Email</span>
+                        <span>
+                            {{userData.email}}
+                        </span>
+                    </div>
+
+                    <div class="form-group inline">
+                        <span class="titleName">Phone</span>
+                        <span>
+                            {{userData.phone}}
+                        </span>
+                    </div>
+
+                    <div class="form-group inline">
+                        <span class="titleName">Birthday</span>
+                        <span>
+                            {{userData.birthday}}
+                        </span>
+                    </div>
+
+                    <div class="form-group inline">
+                        <span class="titleName">Gender</span>
+                        <span>
+                            {{getUserGender()}}
+                        </span>
+                    </div>
+
+                    <div class="form-group inline">
+                        <mat-label class="titleName">Roles</mat-label>
+                        <mat-chip-list #chipList aria-label="Currect roles">
+                            <mat-chip *ngFor="let role of roles" [selectable]="canEditUser()"
+                                [removable]="canEditUser()" (removed)="removeRole(role)">
+                                {{role}}
+                                <button matChipRemove *ngIf="canEditUser()">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </mat-chip>
+                            <input placeholder="Add or remove roles..." #roleInput [formControl]="roleControl"
+                                [matAutocomplete]="auto" [matChipInputFor]="chipList" maxlength="0"
+                                *ngIf="canEditUser()" />
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedRole($event)">
+                            <mat-option *ngFor="let role of allRoles" [value]="role">
+                                {{role.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+
+                    <div class="form-group inline">
+                        <span class="titleName">Groups</span>
+                        <span>
+                            <!--TODO-->
+                        </span>
+                    </div>
+
+                    <mat-card-actions class="actionProfile">
+                        <div class="leftSpace">
+                            <button mat-raised-button class="submit-button" color="primary" 
+                                *ngIf="canEditUser()"
+                                (click)="saveChangedRoles()">
+                                Save changes
+                            </button>
+                        </div>
+                        <div class="leftSpace">
+                            <button mat-raised-button class="delete-button" color="warn" *ngIf="canDeleteUser()"
+                                (click)="deleteUser()">
+                                Delete user
+                            </button>
+                        </div>
+                    </mat-card-actions>
+                </form>
+            </div>
+        </div>
+    </mat-card>
+</div>
