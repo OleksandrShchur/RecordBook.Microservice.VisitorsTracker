@@ -4,21 +4,24 @@ import { UserService } from 'src/app/services/userService';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatSort, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-search',
   templateUrl: './user-search.component.html',
   styleUrls: ['./user-search.component.css']
 })
-export class UserSearchComponent{
+export class UserSearchComponent {
   displayedColumns: string[] = ['email', 'roles'];
   private userList: Array<UserList>;
   public dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   constructor(
@@ -40,7 +43,22 @@ export class UserSearchComponent{
   }
 
   getRecord(row: any) {
-    this.router.navigate(['user'], { queryParams: { id: row.id} });
+    this.router.navigate(['user'], { queryParams: { id: row.id } });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  sortDataSource(sortState: Sort) {
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
 }

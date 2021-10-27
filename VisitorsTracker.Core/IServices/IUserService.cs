@@ -17,5 +17,7 @@ namespace VisitorsTracker.Core.IServices
         List<UserListViewModel> GetAllUsers();
 
         User Authenticate(UserLoginViewModel user);
+
+        Task DeleteUser(Guid id);
     }
 }

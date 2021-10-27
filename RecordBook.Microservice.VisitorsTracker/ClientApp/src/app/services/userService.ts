@@ -48,4 +48,8 @@ export class UserService extends BaseService {
     getUserById(id: string) {
         return this.http.get<UserProfile>(this.baseUrl + 'User/GetUserById/' + id);
     }
+
+    deleteUser(id: string) {
+        return this.http.delete(this.baseUrl + "User/DeleteUser/" + id);
+    }
 }

@@ -59,5 +59,15 @@ namespace VisitorsTracker.Web.Controllers
 
             return Ok(user);
         }
+
+        [HttpDelete]
+        [Route("DeleteUser/{id}")]
+        public IActionResult DeleteUser(Guid id)
+        {
+            _userService.DeleteUser(id);
+
+            return Ok();
+        }
+
     }
 }

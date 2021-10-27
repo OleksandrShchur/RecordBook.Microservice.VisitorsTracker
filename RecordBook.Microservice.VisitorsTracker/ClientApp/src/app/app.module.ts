@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -37,6 +38,7 @@ import { DialogConfirmLogoutComponent } from './components/dialog-confirm-logout
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { RoleService } from './services/roleService';
+import { GroupSearchComponent } from './components/group-search/group-search.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { RoleService } from './services/roleService';
     HelpComponent,
     DialogConfirmLogoutComponent,
     UserSearchComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    GroupSearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -79,7 +82,8 @@ import { RoleService } from './services/roleService';
     MatInputModule,
     MatRippleModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSortModule
   ],
   providers: [
     HttpClient,

@@ -38,14 +38,14 @@ namespace VisitorsTracker.Core.Services
             var user = _mapper.Map<UserCreateViewModel, User>(newUser);
 
             (user.Password, user.Salt) = PasswordHasher.GenerateHash(user.Password);
-            var result = await InsertAsync(user);
+            var result = await Insert(user);
 
             if(result.Email != user.Email || result.Id == Guid.Empty)
             {
                 throw new Exception("Adding user failed");
             }
 
-            await _userRoleService.GrandDefaultRole(result.Id);
+            await _userRoleService.GrantDefaultRole(result.Id);
 
             return result;
         }
@@ -91,6 +91,18 @@ namespace VisitorsTracker.Core.Services
             }
 
             return userFromDb;
+        }
+
+        public async Task DeleteUser(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = GetById(id);
+
+            await Delete(user);
         }
 
         private bool UserExistence(string userEmail)

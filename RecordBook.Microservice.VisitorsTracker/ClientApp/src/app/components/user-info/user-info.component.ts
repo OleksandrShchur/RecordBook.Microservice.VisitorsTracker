@@ -1,16 +1,14 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { UserProfile } from 'src/app/models/user.profile.model';
 import { UserService } from 'src/app/services/userService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserDefaultImage } from 'src/app/constants/userDefaultImage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { genders } from 'src/app/constants/genders';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { RoleService } from 'src/app/services/roleService';
 import { Role } from 'src/app/models/role.model';
-import { COMMA, ENTER, R } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-user-info',
@@ -19,20 +17,21 @@ import { COMMA, ENTER, R } from '@angular/cdk/keycodes';
 })
 export class UserInfoComponent implements OnInit {
   public userData: UserProfile;
-  public selectableRoles = true;
-  public removableRoles = true;
   public roleControl = new FormControl();
   public roles: string[];
-  public allRoles: string[];
+  public allRoles: Array<Role>;
+
+  private currectUser: UserProfile;
+  private readonly canEditRole: string = "Admin";
 
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
 
   constructor(
     private userService: UserService,
     private roleService: RoleService,
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,) { }
+    private sanitizer: DomSanitizer,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -52,15 +51,17 @@ export class UserInfoComponent implements OnInit {
     this.roleService.getAllRoles()
       .subscribe(
         (data: Array<Role>) => {
-          this.allRoles = data.map(x => x.name);
+          this.allRoles = data;
         }
       );
+
+    this.currectUser = this.userService.getUser();
   }
 
   removeRole(role: string) {
     const index = this.roles.indexOf(role);
 
-    if (index >= 0) {
+    if (index >= 0 && this.roles.length > 1) {
       this.roles.splice(index, 1);
     }
   }
@@ -75,7 +76,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   getAvatar() {
-    return this.userData.avatar === null
+    return this.userData?.avatar === null
       ? this.sanitizer.bypassSecurityTrustResourceUrl(UserDefaultImage)
       : this.userData.avatar;
   }
@@ -89,8 +90,33 @@ export class UserInfoComponent implements OnInit {
   }
 
   saveChangedRoles() {
-    let newRoles = this.roles.filter(x => !this.userData.roles.map(r => r.name).includes(x));
+    let userRoles = this.allRoles.filter(x => this.roles.includes(x.name));
+    
+    let user = {
+      "id": this.userData.id,
+      "roles": userRoles
+    }
 
-    console.log(newRoles);
+    this.roleService.saveUserRoleChanges(user).subscribe();
+  }
+
+  canDeleteUser() {
+    return this.currectUser.id !== this.userData.id && this.canEditUser();
+  }
+
+  canEditUser() {
+    return this.currectUser.roles.filter(x => x.name === this.canEditRole).length === 1;
+  }
+
+  deleteUser() {
+    this.userService.deleteUser(this.userData.id).subscribe(
+      () => {
+        this.router.navigate(['users']);
+      }
+    );
+  }
+
+  getAvailableRoles() {
+    return this.roles.filter(x => !this.userData.roles.map(r => r.name).includes(x));
   }
 }

@@ -53,24 +53,20 @@
                     <div class="form-group inline">
                         <mat-label class="titleName">Roles</mat-label>
                         <mat-chip-list #chipList aria-label="Currect roles">
-                            <mat-chip *ngFor="let role of roles" 
-                                [selectable]="selectableRoles"
-                                [removable]="removableRoles" 
-                                (removed)="removeRole(role)">
+                            <mat-chip *ngFor="let role of roles" [selectable]="canEditUser()"
+                                [removable]="canEditUser()" (removed)="removeRole(role)">
                                 {{role}}
-                                <button matChipRemove *ngIf="removableRoles">
+                                <button matChipRemove *ngIf="canEditUser()">
                                     <mat-icon>cancel</mat-icon>
                                 </button>
                             </mat-chip>
-                            <input placeholder="Add or remove roles..." 
-                                #roleInput [formControl]="roleControl"
-                                [matAutocomplete]="auto" 
-                                [matChipInputFor]="chipList" 
-                                maxlength="0"/>
+                            <input placeholder="Add or remove roles..." #roleInput [formControl]="roleControl"
+                                [matAutocomplete]="auto" [matChipInputFor]="chipList" maxlength="0"
+                                *ngIf="canEditUser()" />
                         </mat-chip-list>
                         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedRole($event)">
                             <mat-option *ngFor="let role of allRoles" [value]="role">
-                                {{role}}
+                                {{role.name}}
                             </mat-option>
                         </mat-autocomplete>
                     </div>
@@ -78,18 +74,21 @@
                     <div class="form-group inline">
                         <span class="titleName">Groups</span>
                         <span>
-                            test
+                            <!--TODO-->
                         </span>
                     </div>
 
                     <mat-card-actions class="actionProfile">
                         <div class="leftSpace">
-                            <button mat-raised-button class="submit-button" color="primary" type="submit">
+                            <button mat-raised-button class="submit-button" color="primary" 
+                                *ngIf="canEditUser()"
+                                (click)="saveChangedRoles()">
                                 Save changes
                             </button>
                         </div>
                         <div class="leftSpace">
-                            <button mat-raised-button class="delete-button" color="warn" type="button">
+                            <button mat-raised-button class="delete-button" color="warn" *ngIf="canDeleteUser()"
+                                (click)="deleteUser()">
                                 Delete user
                             </button>
                         </div>

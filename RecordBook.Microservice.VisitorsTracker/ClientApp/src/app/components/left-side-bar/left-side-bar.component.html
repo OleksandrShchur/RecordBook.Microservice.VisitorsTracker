@@ -45,6 +45,11 @@
             <span>Users</span>
         </button>
 
+        <button mat-button class="menu-button" *ngIf="isAuthorized()">
+            <mat-icon>perm_media</mat-icon>
+            <span>Groups</span>
+        </button>
+
         <button mat-button class="menu-button" routerLink="/info">
             <mat-icon>info</mat-icon>
             <span>About</span>
