@@ -20,13 +20,13 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BaseService } from './services/baseService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserService } from './services/userService';
@@ -45,7 +45,6 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
     AppComponent,
     UserProfileComponent,
     LoginComponent,
-    LogoutComponent,
     LeftSideBarComponent,
     RegistrationComponent,
     HomeComponent,
@@ -83,7 +82,8 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
     MatRippleModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [
     HttpClient,

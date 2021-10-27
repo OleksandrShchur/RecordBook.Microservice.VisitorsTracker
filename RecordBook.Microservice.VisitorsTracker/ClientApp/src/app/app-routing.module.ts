@@ -9,6 +9,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { GroupSearchComponent } from './components/group-search/group-search.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,8 +18,9 @@ const routes: Routes = [
   { path: 'help', component: HelpComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'profile', component: UserProfileComponent },
-  { path: 'users', component: UserSearchComponent},
-  { path: 'user', component: UserInfoComponent }
+  { path: 'users', component: UserSearchComponent },
+  { path: 'user', component: UserInfoComponent },
+  { path: 'groups', component: GroupSearchComponent }
 ];
 
 @NgModule({

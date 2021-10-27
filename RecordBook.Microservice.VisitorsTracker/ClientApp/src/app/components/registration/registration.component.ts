@@ -4,18 +4,19 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userService';
 import { UserRegistration } from 'src/app/models/user.registration.model';
 import { genders } from 'src/app/constants/genders';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent{
+export class RegistrationComponent {
 
   public genderTypes = genders;
   public selectedGender = 'Undefined';
 
-  profileForm = new FormGroup({
+  public profileForm = new FormGroup({
     email: new FormControl(''),
     phone: new FormControl(''),
     birthday: new FormControl(''),
@@ -23,10 +24,12 @@ export class RegistrationComponent{
     gender: new FormControl(''),
   });
 
-  public message: string = "";
+  private readonly snackBarDuration = 10000;
 
-  constructor(private userService: UserService, 
-    private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   submitUser() {
     let user = new UserRegistration();
@@ -40,12 +43,19 @@ export class RegistrationComponent{
     this.userService.registerUser(user).subscribe(
       (data: any) => {
         console.log(data);
-        this.message = "Registration successful";
         this.router.navigate(['profile']);
-        
+
         this.userService.setUser(data);
+
+        this.snackBar.open('Registration successful', 'Dismiss', {
+          duration: this.snackBarDuration
+        });
       },
-      error => console.log(error)
+      error => {
+        this.snackBar.open('Registration failed. ' + error.message, 'Dismiss', {
+          duration: this.snackBarDuration
+        });
+      }
     );
   }
 }

@@ -55,12 +55,8 @@ namespace VisitorsTracker.Core.Services
             {
                 var deleteRole = _context.UserRoles
                     .FirstOrDefault(u => u.RoleId == role.Id && u.UserId == user.Id);
-                var result = await Delete(deleteRole);
 
-                if(result.RoleId == Guid.Empty || result.UserId == Guid.Empty)
-                {
-                    throw new Exception("Deleting user role failed");
-                }
+                await Delete(deleteRole);
             }
 
             foreach (var role in rolesToAdd)

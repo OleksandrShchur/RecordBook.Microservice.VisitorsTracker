@@ -82,7 +82,8 @@
                         <div class="leftSpace">
                             <button mat-raised-button class="submit-button" color="primary" 
                                 *ngIf="canEditUser()"
-                                (click)="saveChangedRoles()">
+                                (click)="saveChangedRoles()"
+                                [disabled]="!isChanged">
                                 Save changes
                             </button>
                         </div>

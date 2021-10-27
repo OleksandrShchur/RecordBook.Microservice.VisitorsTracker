@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/userService';
 import { UserLogin } from 'src/app/models/user.login.model';
 import { Router } from '@angular/router';
 import { UserProfile } from 'src/app/models/user.profile.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +13,18 @@ import { UserProfile } from 'src/app/models/user.profile.model';
 })
 export class LoginComponent {
 
-  loginForm = new FormGroup({
+  public loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
-
   public message: string = '';
 
-  constructor(private userService: UserService,
-    private router: Router) {
+  private readonly snackBarDuration = 10000;
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private snackBar: MatSnackBar) {
   }
 
   loginUser() {
@@ -31,12 +35,20 @@ export class LoginComponent {
 
     this.userService.loginUser(user).subscribe(
       (data: UserProfile) => {
-        this.message = "Login success";        
+        this.message = "Login success";
         this.userService.setUser(data);
 
         this.router.navigate(['profile']);
+
+        this.snackBar.open('Login successful', 'Dismiss', {
+          duration: this.snackBarDuration
+        });
       },
-      error => console.log(error)
+      error => {
+        this.snackBar.open('Failed to login, ' + error, 'Dismiss', {
+          duration: this.snackBarDuration
+        });
+      }
     );
   }
 }

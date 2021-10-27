@@ -9,6 +9,7 @@ import { genders } from 'src/app/constants/genders';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { RoleService } from 'src/app/services/roleService';
 import { Role } from 'src/app/models/role.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-info',
@@ -20,9 +21,11 @@ export class UserInfoComponent implements OnInit {
   public roleControl = new FormControl();
   public roles: string[];
   public allRoles: Array<Role>;
+  public isChanged: Boolean;
 
   private currectUser: UserProfile;
   private readonly canEditRole: string = "Admin";
+  private readonly snackBarDuration = 10000;
 
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
 
@@ -31,9 +34,10 @@ export class UserInfoComponent implements OnInit {
     private roleService: RoleService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // add isChanged
     this.route.queryParams
       .subscribe(params => {
         let id = params.id;
@@ -56,6 +60,7 @@ export class UserInfoComponent implements OnInit {
       );
 
     this.currectUser = this.userService.getUser();
+    this.isChanged = false;
   }
 
   removeRole(role: string) {
@@ -63,12 +68,14 @@ export class UserInfoComponent implements OnInit {
 
     if (index >= 0 && this.roles.length > 1) {
       this.roles.splice(index, 1);
+      this.isChanged = true;
     }
   }
 
   selectedRole(event: MatAutocompleteSelectedEvent) {
     if (!this.roles.includes(event.option.viewValue)) {
-      this.roles.push(event.option.viewValue)
+      this.roles.push(event.option.viewValue);
+      this.isChanged = true;
     }
 
     this.roleInput.nativeElement.value = '';
@@ -91,13 +98,26 @@ export class UserInfoComponent implements OnInit {
 
   saveChangedRoles() {
     let userRoles = this.allRoles.filter(x => this.roles.includes(x.name));
-    
+
     let user = {
       "id": this.userData.id,
       "roles": userRoles
     }
 
-    this.roleService.saveUserRoleChanges(user).subscribe();
+    this.roleService.saveUserRoleChanges(user).subscribe(
+      () => {
+        this.snackBar.open('Changes saved', 'Dismiss', {
+          duration: this.snackBarDuration
+        });
+      },
+      error => {
+        this.snackBar.open('Failed to save. ' + error, 'Dismiss', {
+          duration: this.snackBarDuration
+        });
+      }
+    );
+
+    this.isChanged = false;
   }
 
   canDeleteUser() {
@@ -109,9 +129,17 @@ export class UserInfoComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.userData.id).subscribe(
+    this.userService.deleteUser(this.userData.id).subscribe( // check
       () => {
         this.router.navigate(['users']);
+        this.snackBar.open('User deleted', 'Dismiss', {
+          duration: this.snackBarDuration
+        });
+      },
+      error => {
+        this.snackBar.open('Failed to delete. ' + error, 'Dismiss', {
+          duration: this.snackBarDuration
+        });
       }
     );
   }
