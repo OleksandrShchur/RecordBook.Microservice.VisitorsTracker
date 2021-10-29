@@ -2,3 +2,7 @@ table {
     width: 100%;
     cursor: pointer;
 }
+
+.mat-table {
+    overflow-y: scroll;
+}

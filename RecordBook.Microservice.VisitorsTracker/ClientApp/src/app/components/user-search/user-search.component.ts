@@ -21,11 +21,6 @@ export class UserSearchComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
   constructor(
     private userService: UserService,
     private router: Router,
@@ -36,6 +31,9 @@ export class UserSearchComponent {
       (data: Array<UserList>) => {
         this.userList = data;
         this.dataSource = new MatTableDataSource<UserList>(this.userList);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error => {
         this.snackBar.open('Failed to get list of users. ' + error.message, 'Dismiss', {

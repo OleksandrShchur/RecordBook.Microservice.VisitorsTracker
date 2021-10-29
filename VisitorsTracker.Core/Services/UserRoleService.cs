@@ -39,8 +39,8 @@ namespace VisitorsTracker.Core.Services
         public List<RoleItemViewModel> GetAll()
         {
             var roles = _context.Roles
-                .Select(r => _mapper.Map<Role, RoleItemViewModel>(r))
                 .Where(r => r.Name != curatorRole)
+                .Select(r => _mapper.Map<Role, RoleItemViewModel>(r))
                 .ToList();
 
             return roles;
