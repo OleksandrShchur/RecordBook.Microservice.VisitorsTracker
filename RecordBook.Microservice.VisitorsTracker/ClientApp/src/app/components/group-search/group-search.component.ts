@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupModalComponent } from '../create-group-modal/create-group-modal.component';
 import { Router } from '@angular/router';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-group-search',
@@ -14,7 +15,6 @@ import { Router } from '@angular/router';
 export class GroupSearchComponent implements OnInit {
   public groupList: Array<Group>;
   public searchText: string;
-  private readonly snackBarDuration = 10000;
 
   constructor(
     private groupService: GroupService,
@@ -31,7 +31,7 @@ export class GroupSearchComponent implements OnInit {
         },
         error => {
           this.snackBar.open('Get list of groups failed. ' + error.message, 'Dismiss', {
-            duration: this.snackBarDuration
+            duration: Duration
           });
         }
       )

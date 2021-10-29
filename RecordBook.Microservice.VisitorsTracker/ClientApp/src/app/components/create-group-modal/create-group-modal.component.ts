@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Group } from 'src/app/models/group.model';
 import { GroupService } from 'src/app/services/groupService';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-create-group-modal',
@@ -12,7 +13,6 @@ import { GroupService } from 'src/app/services/groupService';
 })
 export class CreateGroupModalComponent implements OnInit { // add available curators to the group at the step of creating
   public group: Group;
-  private readonly snackBarDuration = 10000;
 
   constructor(
     private groupService: GroupService,
@@ -31,7 +31,7 @@ export class CreateGroupModalComponent implements OnInit { // add available cura
           this.group = data;
 
           this.snackBar.open('Group created successfully', 'Dismiss', {
-            duration: this.snackBarDuration
+            duration: Duration
           });
 
           this.dialog.closeAll();
@@ -40,7 +40,7 @@ export class CreateGroupModalComponent implements OnInit { // add available cura
         },
         error => {
           this.snackBar.open('Creating group failed. ' + error.message, 'Dismiss', {
-            duration: this.snackBarDuration
+            duration: Duration
           });
         }
       )

@@ -9,10 +9,8 @@ import { UserService } from 'src/app/services/userService';
 })
 export class UserProfileComponent {
   private userFromDb = new UserProfile();
-  
   private readonly guest: string = "Guest";
-
-  userList: UserProfile | any;
+  public userList: UserProfile | any;
 
   constructor(
     private userService: UserService) { }

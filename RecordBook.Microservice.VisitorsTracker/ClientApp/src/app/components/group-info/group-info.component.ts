@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { GroupInfo } from 'src/app/models/group.info.model';
 import { GroupService } from 'src/app/services/groupService';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-group-info',
@@ -11,7 +12,6 @@ import { GroupService } from 'src/app/services/groupService';
 })
 export class GroupInfoComponent implements OnInit {
   private group: GroupInfo;
-  private readonly snackBarDuration = 10000;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class GroupInfoComponent implements OnInit {
             },
             error => {
               this.snackBar.open('Failed to load group. ' + error.message, 'Dismiss', {
-                duration: this.snackBarDuration
+                duration: Duration
               });
             }
           )

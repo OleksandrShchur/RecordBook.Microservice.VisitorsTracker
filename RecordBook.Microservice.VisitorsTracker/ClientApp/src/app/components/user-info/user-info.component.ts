@@ -10,6 +10,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { RoleService } from 'src/app/services/roleService';
 import { Role } from 'src/app/models/role.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-user-info',
@@ -25,7 +26,6 @@ export class UserInfoComponent implements OnInit {
 
   private currectUser: UserProfile;
   private readonly canEditRole: string = "Admin";
-  private readonly snackBarDuration = 10000;
 
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
 
@@ -107,12 +107,12 @@ export class UserInfoComponent implements OnInit {
     this.roleService.saveUserRoleChanges(user).subscribe(
       () => {
         this.snackBar.open('Changes saved', 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       },
       error => {
         this.snackBar.open('Failed to save. ' + error.message, 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       }
     );
@@ -133,12 +133,12 @@ export class UserInfoComponent implements OnInit {
       () => {
         this.router.navigate(['users']);
         this.snackBar.open('User deleted', 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       },
       error => {
         this.snackBar.open('Failed to delete. ' + error.message, 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       }
     );

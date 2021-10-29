@@ -5,6 +5,7 @@ import { UserLogin } from 'src/app/models/user.login.model';
 import { Router } from '@angular/router';
 import { UserProfile } from 'src/app/models/user.profile.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,6 @@ export class LoginComponent {
     password: new FormControl(''),
   });
   public message: string = '';
-
-  private readonly snackBarDuration = 10000;
 
   constructor(
     private userService: UserService,
@@ -41,12 +40,12 @@ export class LoginComponent {
         this.router.navigate(['profile']);
 
         this.snackBar.open('Login successful', 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       },
       error => {
         this.snackBar.open('Failed to login. ' + error.message, 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       }
     );

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-user-search',
@@ -16,7 +17,6 @@ export class UserSearchComponent {
   displayedColumns: string[] = ['email', 'roles'];
   private userList: Array<UserList>;
   public dataSource: any;
-  private snackBarDuration = 10000;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,7 +37,7 @@ export class UserSearchComponent {
       },
       error => {
         this.snackBar.open('Failed to get list of users. ' + error.message, 'Dismiss', {
-          duration: this.snackBarDuration
+          duration: Duration
         });
       }
     );
