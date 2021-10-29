@@ -70,6 +70,8 @@ namespace RecordBook.Microservice.VisitorsTracker
             #region Configure our services...
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRoleService, UserRoleService>();
+            services.AddScoped<IUserGroupService, UserGroupService>();
+            services.AddScoped<IGroupService, GroupService>();
             #endregion
 
             // register AutoMapper
@@ -77,6 +79,7 @@ namespace RecordBook.Microservice.VisitorsTracker
             {
                 mc.AddProfile(new UserMapperProfile());
                 mc.AddProfile(new RoleMapperProfile());
+                mc.AddProfile(new GroupMapperProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

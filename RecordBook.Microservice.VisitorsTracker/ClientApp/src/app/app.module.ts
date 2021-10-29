@@ -21,6 +21,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -39,6 +41,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { RoleService } from './services/roleService';
 import { GroupSearchComponent } from './components/group-search/group-search.component';
+import { GroupService } from './services/groupService';
 
 @NgModule({
   declarations: [
@@ -83,13 +86,16 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
     MatAutocompleteModule,
     MatChipsModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     HttpClient,
     BaseService,
     UserService,
-    RoleService
+    RoleService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

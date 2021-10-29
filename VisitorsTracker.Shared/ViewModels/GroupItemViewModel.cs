@@ -7,7 +7,7 @@ namespace VisitorsTracker.Shared.ViewModels
     {
         public Guid GroupId { get; set; }
 
-        public string Curator { get; set; }
+        public UserProfileViewModel Curator { get; set; }
 
         public string Number { get; set; }
 

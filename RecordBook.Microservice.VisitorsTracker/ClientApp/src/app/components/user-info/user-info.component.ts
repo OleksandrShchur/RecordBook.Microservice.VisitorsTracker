@@ -137,7 +137,7 @@ export class UserInfoComponent implements OnInit {
         });
       },
       error => {
-        this.snackBar.open('Failed to delete. ' + error, 'Dismiss', {
+        this.snackBar.open('Failed to delete. ' + error.message, 'Dismiss', {
           duration: this.snackBarDuration
         });
       }

@@ -7,7 +7,7 @@ namespace VisitorsTracker.Core.IServices
 {
     public interface IUserRoleService
     {
-        Task GrantDefaultRole(Guid userId);
+        Task GrantToRole(Guid userId, string roleName);
 
         List<RoleItemViewModel> GetAll();
 

@@ -28,7 +28,7 @@ export class LoginComponent {
   }
 
   loginUser() {
-    let user = new UserLogin;
+    let user = new UserLogin();
     user.email = this.loginForm.value.email;
     user.password = this.loginForm.value.password;
 
@@ -45,7 +45,7 @@ export class LoginComponent {
         });
       },
       error => {
-        this.snackBar.open('Failed to login, ' + error, 'Dismiss', {
+        this.snackBar.open('Failed to login. ' + error.message, 'Dismiss', {
           duration: this.snackBarDuration
         });
       }

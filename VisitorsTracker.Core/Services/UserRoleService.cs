@@ -13,7 +13,7 @@ namespace VisitorsTracker.Core.Services
     public class UserRoleService : BaseService<UserRole>, IUserRoleService
     {
         private readonly IMapper _mapper;
-        private const string defaultRole = "Guest";
+        private const string curatorRole = "Curator";
 
         public UserRoleService(
             AppDbContext context,
@@ -23,16 +23,16 @@ namespace VisitorsTracker.Core.Services
             _mapper = mapper;
         }
 
-        public async Task GrantDefaultRole(Guid userId)
+        public async Task GrantToRole(Guid userId, string roleName)
         {
-            var role = _context.Roles.FirstOrDefault(r => r.Name == defaultRole);
+            var role = _context.Roles.FirstOrDefault(r => r.Name == roleName);
             var userRole = new UserRole() { UserId = userId, RoleId = role.Id };
 
             var result = await Insert(userRole);
 
             if(result.UserId == Guid.Empty || result.RoleId == Guid.Empty)
             {
-                throw new Exception("Adding user default role failed");
+                throw new Exception("Adding user role failed");
             }
         }
 
@@ -40,6 +40,7 @@ namespace VisitorsTracker.Core.Services
         {
             var roles = _context.Roles
                 .Select(r => _mapper.Map<Role, RoleItemViewModel>(r))
+                .Where(r => r.Name != curatorRole)
                 .ToList();
 
             return roles;

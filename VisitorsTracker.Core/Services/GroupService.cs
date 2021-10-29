@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,11 @@ using System.Threading.Tasks;
 using VisitorsTracker.Core.IServices;
 using VisitorsTracker.Db.EFCore;
 using VisitorsTracker.Shared.Entities;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Core.Services
 {
-    public class GroupService : BaseService<UserGroup>, IGroupService
+    public class GroupService : BaseService<Group>, IGroupService
     {
         private readonly IMapper _mapper;
 
@@ -23,11 +23,41 @@ namespace VisitorsTracker.Core.Services
             _mapper = mapper;
         }
 
-        public List<UserGroup> GetAllGroups()
+        public Group GetByNumber(string numberOfGroup)
         {
-            var result = _context.UserGroups
-                .Include(u => u.Group)
-                .Include(u => u.User)
+            var result = _context.Groups
+                .FirstOrDefault(g => g.Number == numberOfGroup);
+
+            return result;
+        }
+
+        public async Task<Group> CreateGroup(string numberOfGroup)
+        {
+            if(numberOfGroup == null)
+            {
+                throw new Exception("Number of group is null");
+            }
+
+            if (GetByNumber(numberOfGroup) != null)
+            {
+                throw new Exception("Group already exist in db");
+            }
+
+            var record = new Group() { Number = numberOfGroup };
+            var result = await Insert(record);
+
+            if(result.Id == Guid.Empty)
+            {
+                throw new Exception("Adding new group failed");
+            }
+
+            return result;
+        }
+
+        public List<GroupListViewModel> GetAll()
+        {
+            var result = _context.Groups
+                .Select(g => _mapper.Map<Group, GroupListViewModel>(g))
                 .ToList();
 
             return result;

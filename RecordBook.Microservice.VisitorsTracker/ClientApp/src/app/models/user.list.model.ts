@@ -1,6 +1,6 @@
 import { Role } from "./role.model";
 
-export interface UserList {
+export class UserList {
     id: string;
     email: string;
     roles: Array<Role>;

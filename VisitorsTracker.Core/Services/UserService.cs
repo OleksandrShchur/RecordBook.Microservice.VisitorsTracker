@@ -14,9 +14,9 @@ namespace VisitorsTracker.Core.Services
 {
     public class UserService : BaseService<User>, IUserService
     {
-
         private readonly IUserRoleService _userRoleService;
         private readonly IMapper _mapper;
+        private const string defaultRole = "Guest";
 
         public UserService(
             AppDbContext context,
@@ -45,7 +45,7 @@ namespace VisitorsTracker.Core.Services
                 throw new Exception("Adding user failed");
             }
 
-            await _userRoleService.GrantDefaultRole(result.Id);
+            await _userRoleService.GrantToRole(result.Id, defaultRole);
 
             return result;
         }

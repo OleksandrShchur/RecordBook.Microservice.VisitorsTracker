@@ -1,5 +1,9 @@
 <div class="main-content">
-    <h2>New user</h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">New User</li>
+        </ol>
+    </nav>
 
     <form [formGroup]="profileForm" (ngSubmit)="submitUser()" class="form-group">
 
@@ -21,10 +25,9 @@
         <label for="password">Password: </label>
         <input id="password" type="password" formControlName="password" class="form-control">
         <br />
-        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">Add
-            User</button>
+        <button class="button" type="submit" [disabled]="!profileForm.valid" class="btn btn-outline-dark">
+            Add User
+        </button>
 
     </form>
-    <span>{{message}}</span>
-    <br />
 </div>

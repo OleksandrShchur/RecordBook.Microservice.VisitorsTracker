@@ -1,5 +1,18 @@
 <div class="main-content">
-    <mat-accordion class="example-headers-align">
-        
-    </mat-accordion>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Search Groups</li>
+        </ol>
+    </nav>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Ex. 101" #input>
+    </mat-form-field>
+
+    <mat-selection-list #groups [multiple]="false" class="group-list">
+        <mat-list-option *ngFor="let group of groupList | filter: searchText" [value]="group" class="group-list-option">
+            {{group.number}}
+        </mat-list-option>
+    </mat-selection-list>
 </div>

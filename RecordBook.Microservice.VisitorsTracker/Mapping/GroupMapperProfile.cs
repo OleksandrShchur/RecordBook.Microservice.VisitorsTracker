@@ -15,6 +15,10 @@ namespace VisitorsTracker.Web.Mapping
             CreateMap<UserGroup, GroupItemViewModel>();
 
             CreateMap<GroupItemViewModel, UserGroup>();
+
+            CreateMap<Group, GroupListViewModel>();
+
+            CreateMap<GroupListViewModel, Group>();
         }
     }
 }
