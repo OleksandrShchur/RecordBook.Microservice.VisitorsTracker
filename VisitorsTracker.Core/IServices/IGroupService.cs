@@ -15,5 +15,7 @@ namespace VisitorsTracker.Core.IServices
         Task<Group> CreateGroup(string numberOfGroup);
 
         List<GroupListViewModel> GetAll();
+
+        Group GetById(Guid id);
     }
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Group } from 'src/app/models/group.model';
 import { GroupService } from 'src/app/services/groupService';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateGroupModalComponent } from '../create-group-modal/create-group-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-group-search',
@@ -15,7 +18,9 @@ export class GroupSearchComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -32,4 +37,11 @@ export class GroupSearchComponent implements OnInit {
       )
   }
 
+  openDialog() {
+    this.dialog.open(CreateGroupModalComponent);
+  }
+
+  getGroupInfo(id: string) {
+    this.router.navigate(['group'], { queryParams: { groupId: id } })
+  }
 }

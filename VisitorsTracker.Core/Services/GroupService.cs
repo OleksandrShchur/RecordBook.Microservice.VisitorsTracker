@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,16 @@ namespace VisitorsTracker.Core.Services
             var result = _context.Groups
                 .Select(g => _mapper.Map<Group, GroupListViewModel>(g))
                 .ToList();
+
+            return result;
+        }
+
+        public Group GetById(Guid id)
+        {
+            var result = _context.Groups
+                .Include(g => g.UserGroups)
+                    .ThenInclude(ug => ug.User)
+                .FirstOrDefault(g => g.Id == id);
 
             return result;
         }

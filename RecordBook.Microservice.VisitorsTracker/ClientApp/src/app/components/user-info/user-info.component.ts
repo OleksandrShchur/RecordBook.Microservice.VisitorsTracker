@@ -37,7 +37,7 @@ export class UserInfoComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void { // add isChanged
+  ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
         let id = params.id;
@@ -111,7 +111,7 @@ export class UserInfoComponent implements OnInit {
         });
       },
       error => {
-        this.snackBar.open('Failed to save. ' + error, 'Dismiss', {
+        this.snackBar.open('Failed to save. ' + error.message, 'Dismiss', {
           duration: this.snackBarDuration
         });
       }

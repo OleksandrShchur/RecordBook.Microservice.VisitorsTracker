@@ -42,9 +42,18 @@ namespace VisitorsTracker.Web.Controllers
 
         [HttpPost]
         [Route("AddGroup")]
-        public IActionResult AddGroup(string number)
+        public IActionResult AddGroup([FromBody]string groupNumber)
         {
-            var result = _groupService.CreateGroup(number);
+            var result = _groupService.CreateGroup(groupNumber);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("GetById")]
+        public IActionResult GetById(Guid id)
+        {
+            var result = _groupService.GetById(id);
 
             return Ok(result);
         }

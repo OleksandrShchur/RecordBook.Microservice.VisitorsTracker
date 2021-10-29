@@ -42,6 +42,8 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { RoleService } from './services/roleService';
 import { GroupSearchComponent } from './components/group-search/group-search.component';
 import { GroupService } from './services/groupService';
+import { CreateGroupModalComponent } from './components/create-group-modal/create-group-modal.component';
+import { GroupInfoComponent } from './components/group-info/group-info.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { GroupService } from './services/groupService';
     DialogConfirmLogoutComponent,
     UserSearchComponent,
     UserInfoComponent,
-    GroupSearchComponent
+    GroupSearchComponent,
+    CreateGroupModalComponent,
+    GroupInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

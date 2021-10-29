@@ -10,6 +10,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { GroupSearchComponent } from './components/group-search/group-search.component';
+import { GroupInfoComponent } from './components/group-info/group-info.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   { path: 'users', component: UserSearchComponent },
   { path: 'user', component: UserInfoComponent },
-  { path: 'groups', component: GroupSearchComponent }
+  { path: 'groups', component: GroupSearchComponent },
+  { path: 'group', component: GroupInfoComponent }
 ];
 
 @NgModule({
