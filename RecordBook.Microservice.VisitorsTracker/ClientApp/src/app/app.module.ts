@@ -44,6 +44,7 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
 import { GroupService } from './services/groupService';
 import { CreateGroupModalComponent } from './components/create-group-modal/create-group-modal.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
+import { GroupAddMemberModalComponent } from './components/group-add-member-modal/group-add-member-modal.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { GroupInfoComponent } from './components/group-info/group-info.component
     UserInfoComponent,
     GroupSearchComponent,
     CreateGroupModalComponent,
-    GroupInfoComponent
+    GroupInfoComponent,
+    GroupAddMemberModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,0 +1,39 @@
+.left-space {
+    margin-left: 15px;
+}
+
+.title-name {
+    margin-right: 25px;
+    width: 70px;
+}
+
+.group-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: space-around;
+    align-items: center;
+}
+
+.action-profile {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.mat-card-actions {
+    margin-bottom: 0px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 130px;
+}

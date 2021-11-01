@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VisitorsTracker.Core.IServices;
+using VisitorsTracker.Shared.ViewModels;
 
 namespace VisitorsTracker.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace VisitorsTracker.Web.Controllers
 
         public GroupController(
             IUserGroupService userGroupService,
-            IGroupService groupService) 
+            IGroupService groupService)
         {
             _userGroupService = userGroupService;
             _groupService = groupService;
@@ -42,7 +43,7 @@ namespace VisitorsTracker.Web.Controllers
 
         [HttpPost]
         [Route("AddGroup")]
-        public IActionResult AddGroup([FromBody]string groupNumber)
+        public IActionResult AddGroup([FromBody] string groupNumber)
         {
             var result = _groupService.CreateGroup(groupNumber);
 
@@ -54,6 +55,15 @@ namespace VisitorsTracker.Web.Controllers
         public IActionResult GetById(Guid id)
         {
             var result = _groupService.GetById(id);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("AddUserToGroup")]
+        public IActionResult AddUserToGroup(UsersToGroupViewModel usersToGroup)
+        {
+            var result = _userGroupService.AddMemberToGroup(usersToGroup.UserIds, usersToGroup.GroupId);
 
             return Ok(result);
         }

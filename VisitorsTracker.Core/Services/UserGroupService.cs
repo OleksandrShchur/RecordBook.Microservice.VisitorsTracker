@@ -76,5 +76,29 @@ namespace VisitorsTracker.Core.Services
 
             await _userRoleService.GrantToRole(id, curatorRole);
         }
+
+        public async Task AddMemberToGroup(List<Guid> userIds, Guid groupId)
+        {
+            if(groupId == Guid.Empty)
+            {
+                throw new Exception("Group id is empty");
+            }
+
+            if(_groupService.GetById(groupId) == null)
+            {
+                throw new Exception("Group does not exist");
+            }
+
+            foreach(var uId in userIds)
+            {
+                var record = new UserGroup() { GroupId = groupId, UserId = uId };
+                var result = await Insert(record);
+
+                if (result.Id == Guid.Empty)
+                {
+                    throw new Exception("Adding member to group failed");
+                }
+            }
+        }
     }
 }

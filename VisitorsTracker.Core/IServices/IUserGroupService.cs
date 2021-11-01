@@ -12,5 +12,7 @@ namespace VisitorsTracker.Core.IServices
         Task<UserGroup> AddUserToGroup(Guid userId, string numberOfGroup);
 
         Task AssignCurator(Guid id);
+
+        Task AddMemberToGroup(List<Guid> userId, Guid groupId);
     }
 }

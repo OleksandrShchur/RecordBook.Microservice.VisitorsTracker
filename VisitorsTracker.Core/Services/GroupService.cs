@@ -24,10 +24,11 @@ namespace VisitorsTracker.Core.Services
             _mapper = mapper;
         }
 
-        public Group GetByNumber(string numberOfGroup)
+        public Group GetByNumber(string groupNumber)
         {
             var result = _context.Groups
-                .FirstOrDefault(g => g.Number == numberOfGroup);
+                .Where(g => g.Number == groupNumber)
+                .FirstOrDefault();
 
             return result;
         }

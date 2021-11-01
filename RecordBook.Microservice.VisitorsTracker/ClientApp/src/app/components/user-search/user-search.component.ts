@@ -14,7 +14,7 @@ import { Duration } from 'src/app/constants/snackBarDuration';
   styleUrls: ['./user-search.component.css']
 })
 export class UserSearchComponent {
-  displayedColumns: string[] = ['email', 'roles'];
+  public displayedColumns: string[] = ['email', 'roles'];
   private userList: Array<UserList>;
   public dataSource: any;
 
@@ -26,7 +26,7 @@ export class UserSearchComponent {
     private router: Router,
     private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // TODO Tables with Material Design ripples.
     this.userService.getUserList().subscribe(
       (data: Array<UserList>) => {
         this.userList = data;
