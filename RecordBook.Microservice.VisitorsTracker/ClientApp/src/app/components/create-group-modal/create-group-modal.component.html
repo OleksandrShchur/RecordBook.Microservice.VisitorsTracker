@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Create New Group</h2>
+<mat-dialog-content class="mat-typography">
+
+    <h3>
+        First of all you need to create a new group with unique name. This number must not exist in the system.
+    </h3>
+    <mat-form-field appearance="fill">
+        <mat-label>Number of Group</mat-label>
+        <input matInput [(ngModel)]="group.number">
+    </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button cdkFocusInitial (click)="createGroup()">Create</button>
+</mat-dialog-actions>

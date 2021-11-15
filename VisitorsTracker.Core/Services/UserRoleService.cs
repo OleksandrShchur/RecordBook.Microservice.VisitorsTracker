@@ -13,7 +13,7 @@ namespace VisitorsTracker.Core.Services
     public class UserRoleService : BaseService<UserRole>, IUserRoleService
     {
         private readonly IMapper _mapper;
-        private const string defaultRole = "Guest";
+        private const string curatorRole = "Curator";
 
         public UserRoleService(
             AppDbContext context,
@@ -23,22 +23,23 @@ namespace VisitorsTracker.Core.Services
             _mapper = mapper;
         }
 
-        public async Task GrantDefaultRole(Guid userId)
+        public async Task GrantToRole(Guid userId, string roleName)
         {
-            var role = _context.Roles.FirstOrDefault(r => r.Name == defaultRole);
+            var role = _context.Roles.FirstOrDefault(r => r.Name == roleName);
             var userRole = new UserRole() { UserId = userId, RoleId = role.Id };
 
             var result = await Insert(userRole);
 
             if(result.UserId == Guid.Empty || result.RoleId == Guid.Empty)
             {
-                throw new Exception("Adding user default role failed");
+                throw new Exception("Adding user role failed");
             }
         }
 
         public List<RoleItemViewModel> GetAll()
         {
             var roles = _context.Roles
+                .Where(r => r.Name != curatorRole)
                 .Select(r => _mapper.Map<Role, RoleItemViewModel>(r))
                 .ToList();
 
@@ -55,12 +56,8 @@ namespace VisitorsTracker.Core.Services
             {
                 var deleteRole = _context.UserRoles
                     .FirstOrDefault(u => u.RoleId == role.Id && u.UserId == user.Id);
-                var result = await Delete(deleteRole);
 
-                if(result.RoleId == Guid.Empty || result.UserId == Guid.Empty)
-                {
-                    throw new Exception("Deleting user role failed");
-                }
+                await Delete(deleteRole);
             }
 
             foreach (var role in rolesToAdd)

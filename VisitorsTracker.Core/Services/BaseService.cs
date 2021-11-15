@@ -44,7 +44,7 @@ namespace VisitorsTracker.Core.Services
             return entity;
         }
 
-        public async Task<T> Delete(T entity)
+        public async Task Delete(T entity)
         {
             if (entity == null)
             {
@@ -53,8 +53,6 @@ namespace VisitorsTracker.Core.Services
 
             Entities.Remove(entity);
             await _context.SaveChangesAsync();
-
-            return entity;
         }
 
     }

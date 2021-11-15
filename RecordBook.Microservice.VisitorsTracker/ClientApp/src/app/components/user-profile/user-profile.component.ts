@@ -8,11 +8,9 @@ import { UserService } from 'src/app/services/userService';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent {
-  private userFromDb = new UserProfile;
-  
+  private userFromDb = new UserProfile();
   private readonly guest: string = "Guest";
-
-  userList: UserProfile | any;
+  public userList: UserProfile | any;
 
   constructor(
     private userService: UserService) { }

@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Duration } from 'src/app/constants/snackBarDuration';
 
 @Component({
   selector: 'app-user-search',
@@ -12,29 +14,32 @@ import { MatSort, Sort } from '@angular/material/sort';
   styleUrls: ['./user-search.component.css']
 })
 export class UserSearchComponent {
-  displayedColumns: string[] = ['email', 'roles'];
+  public displayedColumns: string[] = ['email', 'roles'];
   private userList: Array<UserList>;
   public dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
   constructor(
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // TODO Tables with Material Design ripples.
     this.userService.getUserList().subscribe(
       (data: Array<UserList>) => {
         this.userList = data;
         this.dataSource = new MatTableDataSource<UserList>(this.userList);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      error => console.log(error)
+      error => {
+        this.snackBar.open('Failed to get list of users. ' + error.message, 'Dismiss', {
+          duration: Duration
+        });
+      }
     );
   }
 

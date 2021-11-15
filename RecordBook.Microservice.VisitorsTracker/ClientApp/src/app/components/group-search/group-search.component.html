@@ -1,1 +1,27 @@
-<p>group-search works!</p>
+<div class="main-content">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Search Groups</li>
+        </ol>
+    </nav>
+
+    <div class="flex-container">
+        <mat-form-field appearance="standard">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="searchText" placeholder="Ex. 101" #input>
+        </mat-form-field>
+
+        <div class="button-container">
+            <button mat-stroked-button color="primary" (click)="openDialog()">
+                Create group
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-selection-list #group [multiple]="false" class="group-list" (click)="getGroupInfo(group.selectedOptions.selected[0]?.value.id)">
+        <mat-list-option *ngFor="let group of groupList | filter: searchText" [value]="group" class="group-list-option">
+            {{group.number}}
+        </mat-list-option>
+    </mat-selection-list>
+</div>

@@ -20,13 +20,16 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BaseService } from './services/baseService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { LeftSideBarComponent } from './components/left-side-bar/left-side-bar.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserService } from './services/userService';
@@ -39,13 +42,16 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { RoleService } from './services/roleService';
 import { GroupSearchComponent } from './components/group-search/group-search.component';
+import { GroupService } from './services/groupService';
+import { CreateGroupModalComponent } from './components/create-group-modal/create-group-modal.component';
+import { GroupInfoComponent } from './components/group-info/group-info.component';
+import { GroupAddMemberModalComponent } from './components/group-add-member-modal/group-add-member-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserProfileComponent,
     LoginComponent,
-    LogoutComponent,
     LeftSideBarComponent,
     RegistrationComponent,
     HomeComponent,
@@ -54,7 +60,10 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
     DialogConfirmLogoutComponent,
     UserSearchComponent,
     UserInfoComponent,
-    GroupSearchComponent
+    GroupSearchComponent,
+    CreateGroupModalComponent,
+    GroupInfoComponent,
+    GroupAddMemberModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -83,13 +92,18 @@ import { GroupSearchComponent } from './components/group-search/group-search.com
     MatRippleModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatListModule,
+    Ng2SearchPipeModule,
+    MatCheckboxModule
   ],
   providers: [
     HttpClient,
     BaseService,
     UserService,
-    RoleService
+    RoleService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

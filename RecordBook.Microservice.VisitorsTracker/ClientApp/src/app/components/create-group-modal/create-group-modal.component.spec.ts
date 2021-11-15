@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoutComponent } from './logout.component';
+import { CreateGroupModalComponent } from './create-group-modal.component';
 
-describe('LogoutComponent', () => {
-  let component: LogoutComponent;
-  let fixture: ComponentFixture<LogoutComponent>;
+describe('CreateGroupModalComponent', () => {
+  let component: CreateGroupModalComponent;
+  let fixture: ComponentFixture<CreateGroupModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoutComponent ]
+      declarations: [ CreateGroupModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LogoutComponent);
+    fixture = TestBed.createComponent(CreateGroupModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,6 +9,6 @@ namespace VisitorsTracker.Core.IServices
 
         Task<T> Update(T entity);
 
-        Task<T> Delete(T entity);
+        Task Delete(T entity);
     }
 }
