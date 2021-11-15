@@ -7,7 +7,7 @@ import { Duration } from 'src/app/constants/snackBarDuration';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/services/userService';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { GroupAddMemberModalComponent } from '../group-add-member-modal/group-add-member-modal.component';
 
 @Component({
@@ -53,4 +53,20 @@ export class GroupInfoComponent implements OnInit {
     this.dialog.open(GroupAddMemberModalComponent);
   }
 
+  getRecord(row: any) {
+    return 0;
+  }
+
+  getUserRoleNames(id: string) {
+    return "string";
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

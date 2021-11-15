@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -94,7 +95,8 @@ import { GroupAddMemberModalComponent } from './components/group-add-member-moda
     MatSortModule,
     MatSnackBarModule,
     MatListModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatCheckboxModule
   ],
   providers: [
     HttpClient,
