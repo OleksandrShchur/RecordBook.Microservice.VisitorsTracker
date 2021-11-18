@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorsTracker.Web", "RecordBook.Microservice.VisitorsTracker\VisitorsTracker.Web.csproj", "{41BC9984-B6B5-4E24-B11F-45A253B06C19}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorsTracker.Core", "Vis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorsTracker.Db", "VisitorsTracker.Db\VisitorsTracker.Db.csproj", "{74B07F09-ECBA-4179-A708-3A0AF7EB489B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorsTracker.Shared", "VisitorsTracker.Shared\VisitorsTracker.Shared.csproj", "{803DD36B-16CF-4726-AE65-F5BF161B3D02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorsTracker.Shared", "VisitorsTracker.Shared\VisitorsTracker.Shared.csproj", "{803DD36B-16CF-4726-AE65-F5BF161B3D02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorsTracker.Test", "VisitorsTracker.Test\VisitorsTracker.Test.csproj", "{1958B514-E774-4E50-8B49-147EA9EEFABD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{803DD36B-16CF-4726-AE65-F5BF161B3D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{803DD36B-16CF-4726-AE65-F5BF161B3D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{803DD36B-16CF-4726-AE65-F5BF161B3D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1958B514-E774-4E50-8B49-147EA9EEFABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1958B514-E774-4E50-8B49-147EA9EEFABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1958B514-E774-4E50-8B49-147EA9EEFABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1958B514-E774-4E50-8B49-147EA9EEFABD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
